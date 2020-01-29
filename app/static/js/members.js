@@ -16,7 +16,12 @@ $(document).ready(function () {
 
         columns: [
             {data: "id", visible: false},
-            {data: "name"},
+            {
+                data: "name",
+                render: function (data, type, row, meta) {
+                    return `<a href="member/${row.id}">${row.name}</a>`;
+                }
+            },
             {data: "email"},
             {
                 data: "phone",

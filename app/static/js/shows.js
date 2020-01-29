@@ -26,7 +26,12 @@ $(document).ready(function () {
         "order": [[1, "asc"]],
         columns: [
             {data: "id", visible: false},
-            {data: "name"},
+            {
+                data: "name",
+                render: function (data, type, row, meta) {
+                    return `<a href="show/${row.id}">${row.name}</a>`;
+                }
+            },
             {
                 data: "description", render: function (data, type, row) {
                     return data.substr(0, 50);
