@@ -19,8 +19,7 @@ class ShowForm(FlaskForm):
     id = HiddenField("id")
     name = StringField('Όνομα εκπομπής', validators=[DataRequired()])
     description = TextAreaField('Περιγραφή', validators=[DataRequired()])
-    members = SelectMultipleField('Μέλη',
-                                  choices=list(map(lambda member: (str(member.id), member.name), Member.query.all())))
+    members = SelectMultipleField('Μέλη')
     show_logo = FileField()
     email = StringField('Email')
     facebook = StringField('Facebook')
@@ -133,6 +132,8 @@ def show_add_edit(show_id=None):
     if 'authenticated' not in session:
         return redirect('/login')
     form = ShowForm()
+    form.members.choices = list(map(lambda member: (str(member.id), member.name), Member.query.all()))
+
     logo = 'https://images.unsplash.com/photo-1507808973436-a4ed7b5e87c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'
     if form.validate_on_submit():  # it's submit!
         print("validate_on_submit")
