@@ -1,3 +1,5 @@
+google
+wtforms
 Click
 Flask
 gunicorn
@@ -5,3 +7,9 @@ itsdangerous
 Jinja2
 MarkupSafe
 Werkzeug
+flask-wtf
+flask-sqlalchemy
+flask-migrate
+google-cloud-storage
+sqlalchemy-datatables
+jsonify

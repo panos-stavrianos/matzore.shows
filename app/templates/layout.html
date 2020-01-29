@@ -1,0 +1,120 @@
+{% extends "application.html" %}
+{% block layout %}
+    <body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary accordion sidebar sidebar-dark d-md-inline"
+            id="accSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <img class="icon" src="/img/logo.png" alt="Αρχειοθέτηση εκπομπών"/>
+
+                <div class="sidebar-brand-text mx-0">Αρχειοθέτηση εκπομπών</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            {% if page=="shows" %}
+                <li class="nav-item active">
+                    {% else %}
+                <li class="nav-item">
+            {% endif %}
+            <a class="nav-link" href="/shows">
+                <i class="fas fa-fw fa-ice-cream"></i>
+                <span>Εκπομπές</span></a>
+            </li>
+
+            <!-- Nav Item - Members -->
+            {% if page=="members" %}
+                <li class="nav-item active">
+                    {% else %}
+                <li class="nav-item">
+            {% endif %}
+            <a class="nav-link" href="/members">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Μέλη</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Logout</span></a>
+            </li>
+
+            <li class="nav-item d-block d-sm-none">
+                <a class="nav-link" id="sidebarClose">
+                    <i class="fas fa-fw fa-times text-dark"></i></a>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column bg-gradient-darker">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <nav class="navbar navbar-expand topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <nav class="navbar navbar-expand navbar-dark static-top" style="height: 50px">
+                        <div class="text-center  d-block d-sm-none">
+                            <button type="button" class="btn btn-dark btn-circle btn-sm " id="sidebarOpen"><i
+                                    class="fas fa-fw fa-bars"></i></button>
+                        </div>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                        <div class="alert alert-success" role="alert">{{ message }}</div>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </nav>
+
+
+                </nav>
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    {% block content %}{% endblock %}
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; 2020 matzore.uoc.gr </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    </body>
+{% endblock %}
+

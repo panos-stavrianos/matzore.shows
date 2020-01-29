@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="justify-content-center row">
+        <div class="col-md-6">
+            <div class="card border-primary ">
+                <div class="card-header text-white bg-primary ">
+                    Προσθέστε/Ενημερώστε εκπομπή
+                </div>
+                <div class="card-body">
+                    <form name="form" action="/show_submit" id="form" class="form-horizontal"
+                          enctype="multipart/form-data"
+                          method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-group">
+                            {{ form.name.label }}
+                            {{ form.name(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.members.label }}
+                            {{ form.members(class_="selectpicker form-control", **{'data-live-search': 'true','data-width':"auto",'data-style':"btn-primary"}) }}
+
+                        </div>
+
+                        <div class="imgUp">
+                            <img class="imagePreview m-2"
+                                 src="{{ logo }}"/>
+
+                            <label class="btn btn-primary btn-primary_upload">
+                                Upload your logo<input type="file" class="uploadFile img" value="Upload Photo"
+                                                       name="show_logo" id="show_logo"
+                                                       style="width: 0px;height: 0px;overflow: hidden;">
+
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.description.label }}
+                            {{ form.description(class_="form-control") }}
+                        </div>
+
+                        <h2>Social</h2>
+
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.facebook.label }}
+                            {{ form.facebook(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.instagram.label }}
+                            {{ form.instagram(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.twitter.label }}
+                            {{ form.twitter(class_="form-control") }}
+                        </div>
+
+
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-12 controls">
+                                <button type="submit" class="btn btn-outline-success pull-right"><i
+                                        class="fa fa-log-in"></i> Προσθήκη
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

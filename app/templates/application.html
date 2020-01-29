@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" type="image/png" href="/img/logo.png"/>
+
+    <!-- CDNs-->
+
+
+    {% for i_css in cdn[0] %}
+        <link rel="stylesheet" href="{{ i_css }}"/>
+    {% endfor %}
+    <!-- Custom styles for this template-->
+    <link href="/vendor/css/sb-admin-2.min.css" rel="stylesheet">
+
+
+    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/{{ page }}.css" rel="stylesheet">
+
+</head>
+{% block layout %}{% endblock %}
+
+
+<!-- CDNs-->
+{% for i_js in cdn[1] %}
+    <script type="text/javascript" src="{{ i_js }}"></script>
+{% endfor %}
+
+
+<script type="text/javascript" src="/vendor/js/dataTables.cellEdit.js"></script>
+<script type="text/javascript" src="/vendor/js/sb-admin-2.min.js"></script>
+
+
+<script type="text/javascript" src="/js/custom.js"></script>
+<script type="text/javascript" src="/js/{{ page }}.js"></script>
+
+</html>
+
+

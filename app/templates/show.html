@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container text-gray-300">
+        <div class="row m-2">
+            <!-- Portfolio Item Heading -->
+            <h2 class="m-2 col-auto">{{ show.name }}  </h2>
+            <div class="col-auto">
+                <a href="/show_edit/{{ show.id }}" class="btn btn-outline-primary m-2" role="button"
+                   aria-pressed="true">Επεξεργασία</a>
+                <a href="/show_delete/{{ show.id }}" class="btn btn-outline-danger m-2"
+                   onclick="return confirm('Σίγουρα θέλετε να διαγράψετε την εκπομπή {{ show.name }}')" role="button"
+                   aria-pressed="true">Διαγραφή</a>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-5">
+                <img class="img-fluid" src="{{ show.logo }}" alt="">
+                <ul class="social m-3 text-right">
+                    {% if show.facebook %}
+                        <li><a href="{{ show.facebook }}" class="facebook" title="Facebook"><i
+                                class="fab fa-facebook"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if show.instagram %}
+                        <li><a href="{{ show.instagram }}" class="instagram" title="Instagram"><i
+                                class="fab fa-instagram"></i></a></li>
+                    {% endif %}
+                    {% if show.twitter %}
+                        <li><a href="{{ show.twitter }}" class="twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <h4 class="text-white text-right">{{ show.email }}</h4>
+
+            </div>
+
+            <div class="col-md-7">
+                <h3>Περιγραφή</h3>
+                <p>{{ show.description }}</p>
+
+                <h3>Μέλη</h3>
+                <ul>
+                    {% for member in show.members %}
+                        <li>{{ member.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+
+    </div>
+    <!-- /.container -->
+
+
+
+
+
+
+{% endblock %}

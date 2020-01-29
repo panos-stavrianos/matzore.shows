@@ -1,2 +1,17 @@
 # Project exclude paths
 /venv/
+/.idea/.gitignore
+/migrations/alembic.ini
+/app/app.db
+/.idea/dataSources.xml
+/app/static/vendor/js/dataTables.cellEdit.js
+/.idea/dbnavigator.xml
+/.idea/matzore.shows.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/dictionaries/panos.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/codeStyles/Project.xml
+/migrations/README
+/.idea/vcs.xml
+/.idea/webResources.xml
