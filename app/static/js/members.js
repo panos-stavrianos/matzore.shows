@@ -22,7 +22,12 @@ $(document).ready(function () {
                     return `<a href="member/${row.id}">${row.name}</a>`;
                 }
             },
-            {data: "email"},
+            {
+                data: "email",
+                render: function (data, type, row, meta) {
+                    return `<a href="member/${row.id}">${row.email}</a>`;
+                }
+            },
             {
                 data: "phone",
                 orderable: false,

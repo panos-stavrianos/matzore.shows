@@ -33,8 +33,9 @@ $(document).ready(function () {
                 }
             },
             {
-                data: "description", render: function (data, type, row) {
-                    return data.substr(0, 50);
+                data: "description",
+                render: function (data, type, row) {
+                    return `<a href="show/${row.id}">${data.substr(0, 50)}</a>`;
                 }
             },
             {data: "email"},
