@@ -108,6 +108,32 @@ def member_add_edit(member_id=None):
     return render_template('member_edit_or_add.html', page='member_edit_or_add', title='Mέλος', cdn=cdn, form=form)
 
 
+@app.route('/show_delete/<show_id>')
+def show_delete(show_id):
+    if 'authenticated' not in session:
+        return redirect('/login')
+    show = Show.query.get(int(show_id))
+    show.members.clear()
+    db.session.commit()
+
+    db.session.delete(show)
+    db.session.commit()
+    return redirect('/shows')
+
+
+@app.route('/member_delete/<member_id>')
+def member_delete(member_id):
+    if 'authenticated' not in session:
+        return redirect('/login')
+    member = Member.query.get(int(member_id))
+    member.shows.clear()
+    db.session.commit()
+
+    db.session.delete(member)
+    db.session.commit()
+    return redirect('/members')
+
+
 @app.route('/')
 @app.route('/shows')
 def shows():
