@@ -45,7 +45,9 @@
                 <h3>Μέλη</h3>
                 <ul>
                     {% for member in show.members %}
-                        <li>{{ member.name }}</li>
+                        <li><a href="/member/{{ member.id }}"
+                               title="Δείτε περισσότερα">{{ member.name }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -56,6 +58,7 @@
 
     </div>
     <!-- /.container -->
+
 
 
 
