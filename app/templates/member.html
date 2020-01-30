@@ -31,8 +31,12 @@
                 <h3>Εκπομπές</h3>
                 <ul>
                     {% for show in member.shows %}
-                        <li>{{ show.name }}</li>
+                        <li><a href="/show/{{ show.id }}"
+                               title="Δείτε περισσότερα">{{ show.name }}</a>
+                        </li>
                     {% endfor %}
+
+
                 </ul>
             </div>
 
