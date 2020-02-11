@@ -24,7 +24,7 @@ matzore = Highcharts.chart('matzore', {
         type: 'datetime',
         labels: {
             formatter: function () {
-                return moment(this.x).format('h:mm')
+                return moment(this.value).format('h:mm')
             }
         },
     },
