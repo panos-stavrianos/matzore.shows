@@ -34,6 +34,10 @@ cdn = [
         'https://www.gstatic.com/firebasejs/7.5.0/firebase-messaging.js',
         'https://unpkg.com/popper.js',
         'https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js',
-        'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js'
+        'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js',
+        "https://code.highcharts.com/highcharts.js",
+        "https://code.highcharts.com/highcharts-more.js",
+        "https://code.highcharts.com/modules/solid-gauge.js",
+        'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js'
     ]
 ]

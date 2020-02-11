@@ -12,7 +12,8 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <img class="icon" src="/img/logo.png" alt="Αρχειοθέτηση εκπομπών"/>
 
-                <div class="sidebar-brand-text mx-0">Ματζόρε<sup>89.1</sup> <small>Αρχειοθέτηση μελών και εκπομπών</small></div>
+                <div class="sidebar-brand-text mx-0">Ματζόρε<sup>89.1</sup> <small>Αρχειοθέτηση μελών και
+                    εκπομπών</small></div>
 
             </a>
 
@@ -40,7 +41,16 @@
                 <i class="fas fa-fw fa-users"></i>
                 <span>Μέλη</span></a>
             </li>
-
+            <!-- Nav Item - Members -->
+            {% if page=="traffic" %}
+                <li class="nav-item active">
+                    {% else %}
+                <li class="nav-item">
+            {% endif %}
+            <a class="nav-link" href="/traffic">
+                <i class="fas fa-fw fa-headphones"></i>
+                <span>Ακροαματικότητα</span></a>
+            </li>
             <hr class="sidebar-divider">
 
             <li class="nav-item">

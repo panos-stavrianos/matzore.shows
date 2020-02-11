@@ -40,3 +40,7 @@ Werkzeug==0.16.1
 WTForms==2.2.1
 psycopg2
 configparser
+APScheduler==3.0.0
+flask-socketio
+gevent-websocket
+gevent

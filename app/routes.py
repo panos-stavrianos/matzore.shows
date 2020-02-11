@@ -1,12 +1,16 @@
+from datetime import datetime
+
 from datatables import ColumnDT, DataTables
 from flask import render_template, send_from_directory, redirect, session, request, jsonify
+from flask_socketio import emit
 from flask_wtf import FlaskForm
+from gevent import sleep
 from google.cloud import storage
 from wtforms import PasswordField, SubmitField, StringField, FileField, SelectMultipleField, HiddenField, TextAreaField
 from wtforms.validators import DataRequired
 
-from app import app, db
-from app.models import Member, Show
+from app import app, db, socketio
+from app.models import Member, Show, Traffic
 from app.tools import cdn
 
 
@@ -286,3 +290,30 @@ def get_shows():
 
     # returns what is needed by DataTable
     return jsonify(rowTable.output_result())
+
+
+@app.route('/traffic')
+def traffic():
+    if 'authenticated' not in session:
+        return redirect('/login')
+
+    return render_template('traffic.html', page='traffic', title='Ακροαματικότητα', cdn=cdn)
+
+
+@app.route('/get_traffic', strict_slashes=False, methods=['GET'])
+def get_traffic():
+    records = Traffic.query.filter(Traffic.radio_name == 'matzore').all()
+    data = {'data': []}
+    for record in records:
+        data['data'].append([datetime.timestamp(record.date_time) * 1000, record.listeners])
+    print(data)
+    return data
+
+
+@socketio.on('monitor_traffic')
+def handle_test_socket(json):
+    while (1):
+        last_record = Traffic.query.filter(Traffic.radio_name == 'matzore').order_by(Traffic.id.desc()).first()
+
+        emit('get_traffic', {"data": [datetime.timestamp(datetime.now()) * 1000, last_record.listeners]})
+        sleep(5)

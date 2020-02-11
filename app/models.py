@@ -1,3 +1,5 @@
+from sqlalchemy import DateTime, func
+
 from app import db
 
 show_have_members = db.Table('show_have_members',
@@ -32,5 +34,16 @@ class Show(db.Model):
 
     def __repr__(self):
         return '<Show {}>'.format(self.name)
+
+
+class Traffic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    radio_name = db.Column(db.String(200))
+    listeners = db.Column(db.Integer)
+    date_time = db.Column(DateTime(), default=func.now())
+
+    def __repr__(self):
+        return '<Traffic {}>'.format(self.name)
+
 
 db.create_all()
