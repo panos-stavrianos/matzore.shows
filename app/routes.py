@@ -316,4 +316,4 @@ def handle_test_socket(json):
         last_record = Traffic.query.filter(Traffic.radio_name == 'matzore').order_by(Traffic.id.desc()).first()
 
         emit('get_traffic', {"data": [datetime.timestamp(datetime.now()) * 1000, last_record.listeners]})
-        sleep(5)
+        sleep(10)

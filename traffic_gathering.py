@@ -14,16 +14,16 @@ prefix = sys.argv[1]
 URL = "http://rs.radio.uoc.gr:8000/status-json.xsl"
 
 
-@sched.scheduled_job('interval', seconds=10)
+@sched.scheduled_job('interval', seconds=20)
 def timed_job():
     gather_traffic()
 
 
 def gather_traffic():
     try:
-        r = requests.get(url=URL, timeout=3)
+        r = requests.get(url=URL, timeout=5)
     except Timeout:
-        print('The request timed out')
+        print('The request timed out for listeners')
     else:
         global prev_listeners
 
@@ -37,7 +37,6 @@ def gather_traffic():
                 final[stream['server_name']] = stream['listeners']
             else:
                 final[stream['server_name']] += stream['listeners']
-        print(final)
 
         if prefix in final and prev_listeners != final[prefix]:
             basedir = os.path.abspath(os.path.dirname(__file__))
@@ -51,8 +50,6 @@ def gather_traffic():
             connection.execute(query)
             connection.close()
             prev_listeners = final[prefix]
-            print('saved')
-        print('end')
 
 
 sched.start()
