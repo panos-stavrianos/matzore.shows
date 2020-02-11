@@ -59,7 +59,7 @@ matzore = Highcharts.chart('matzore', {
 function monitor() {
     $.get("get_traffic", function (data) {
         matzore_series[0].data = data.data;
-        matzore_series[0].data = matzore_series[0].data.filter(record => record[0] > new Date(timestamp - 10800000));//3 hours
+        matzore_series[0].data = matzore_series[0].data.filter(record => record[0] > new Date(timestamp - 10800 * 1000));//3 hours
         matzore.series[0].update({data: matzore_series[0].data}, true);
     });
 
@@ -71,7 +71,7 @@ function monitor() {
         let timestamp = Date.now();
 
         matzore_series[0].data.push(result.data);
-        matzore_series[0].data = matzore_series[0].data.filter(record => record[0] > new Date(timestamp - 10800000));//3 hours
+        matzore_series[0].data = matzore_series[0].data.filter(record => record[0] > new Date(timestamp - 10800 * 1000));//3 hours
 
         matzore.series[0].update({data: matzore_series[0].data}, true);
 
