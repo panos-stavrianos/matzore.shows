@@ -1,6 +1,7 @@
 import os
 import sys
 from datetime import datetime
+from os.path import basename
 
 import requests
 import sqlalchemy as db

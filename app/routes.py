@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import requests
 from datatables import ColumnDT, DataTables
 from flask import render_template, send_from_directory, redirect, session, request, jsonify
 from flask_socketio import emit
@@ -311,9 +312,34 @@ def get_traffic():
 
 
 @socketio.on('monitor_traffic')
-def handle_test_socket(json):
+def monitor_traffic(json):
     while (1):
         last_record = Traffic.query.filter(Traffic.radio_name == 'matzore').order_by(Traffic.id.desc()).first()
 
         emit('get_traffic', {"data": [datetime.timestamp(datetime.now()) * 1000, last_record.listeners]})
         sleep(10)
+
+
+def get_autopilot():
+    data = requests.get('http://147.52.224.130:9670').json()
+    dataFinal = {'current_song': data.pop('current_song'), 'next_song': data.pop('next_song')}
+    dataFinal['current_song']["name"] = 'Current Song'
+    dataFinal['current_song']['percent'] = \
+        str(int((int(dataFinal['current_song']['Elapsed']) / int(dataFinal['current_song']['Duration'])) * 100))
+    dataFinal['next_song']["name"] = 'Next Song'
+    dataFinal['next_song']['percent'] = 0
+    return dataFinal
+
+
+@app.route('/autopilot')
+def autopilot():
+    if 'authenticated' not in session:
+        return redirect('/login')
+    return render_template('autopilot.html', page='autopilot', title='Auto Pilot', cdn=cdn, data=get_autopilot())
+
+
+@socketio.on('monitor_autopilot')
+def monitor_autopilot(json):
+    while (1):
+        emit('get_autopilot', get_autopilot())
+        sleep(2)

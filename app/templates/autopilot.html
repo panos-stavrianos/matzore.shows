@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row">
+        {% for song in data %}
+            <div class="col-auto m-2">
+                <div class="card border-primary">
+                    <div class="card-header text-center text-white bg-primary ">
+                        {{ data[song]['name'] }}
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="card text-center">
+                            <ul class="list-group list-group-flush">
+
+                                {% for key in data[song] %}
+                                    <li class="list-group-item">
+                                        <div class="list-group-item-fixed">
+                                            <strong class="list-group-left">{{ key }}</strong>
+                                            <span class="list-group-right"
+                                                  id="{{ song+"_"+key }}">{{ data[song][key] }}</span>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" id="{{ song+"_progress" }}" role="progressbar"
+                                     style="width: {{ data[song]['percent'] }}%"
+                                     aria-valuenow="{{ data[song]['Elapsed'] }}" aria-valuemin="0"
+                                     aria-valuemax="{{ data[song]['Duration'] }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
