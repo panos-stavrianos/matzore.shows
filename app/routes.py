@@ -305,7 +305,8 @@ def traffic():
 def get_traffic():
     four_hours_ago = datetime.now() - timedelta(hours=4)
 
-    records = Traffic.query.filter(Traffic.radio_name == 'matzore', Traffic.date_time > four_hours_ago).all()
+    records = Traffic.query.filter(Traffic.radio_name == 'matzore', Traffic.date_time > four_hours_ago).order_by(
+        Traffic.id.asc()).all()
     data = {'data': []}
     for record in records:
         data['data'].append([datetime.timestamp(record.date_time) * 1000, record.listeners])

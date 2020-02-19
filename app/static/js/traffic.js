@@ -57,9 +57,13 @@ matzore = Highcharts.chart('matzore', {
 });
 
 function monitor() {
+
     $.get("get_traffic", function (data) {
-        matzore_series[0].data = data.data;
-        matzore_series[0].data = matzore_series[0].data.filter(record => record[0] > new Date(timestamp - 10800 * 1000));//3 hours
+        let timestamp = Date.now();
+        matzore_series[0].data = data.data.map(record => [record[0] - (new Date()).getTimezoneOffset() * 60000, record[1]]);
+        //matzore_series[0].data = matzore_series[0].data.map(record => new Date(record[0] - timestamp.getTimezoneOffset() * 60000));//3 hours
+        console.log(matzore_series[0].data);
+        //matzore_series[0].data = matzore_series[0].data.filter(record => record[0] > new Date(timestamp - 10800 * 1000));//3 hours
         matzore.series[0].update({data: matzore_series[0].data}, true);
     });
 
