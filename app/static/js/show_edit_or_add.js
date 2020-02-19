@@ -25,7 +25,7 @@ $(document).ready(function () {
         el: document.querySelector('#description_editor'),
         initialEditType: 'markdown',
         previewStyle: 'vertical',
-        height: '300px',
+        height: '500px',
         initialValue: description,
         hideModeSwitch: true
     });
