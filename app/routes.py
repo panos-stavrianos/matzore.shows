@@ -315,7 +315,7 @@ def get_traffic():
 def monitor_traffic(json):
     while (1):
         last_record = Traffic.query.filter(Traffic.radio_name == 'matzore').order_by(Traffic.id.desc()).first()
-
+        db.session.remove()
         emit('get_traffic', {"data": [datetime.timestamp(datetime.now()) * 1000, last_record.listeners]})
         sleep(10)
 
