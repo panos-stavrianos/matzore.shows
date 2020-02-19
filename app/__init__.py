@@ -10,6 +10,8 @@ from app.config import Config
 
 app = Flask(__name__, template_folder="templates")
 app.config.from_object(Config)
+app.config['SQLALCHEMY_POOL_SIZE'] = 5
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 socketio = SocketIO(app)
