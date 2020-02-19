@@ -15,7 +15,7 @@ prefix = sys.argv[1]
 URL = "http://rs.radio.uoc.gr:8000/status-json.xsl"
 
 
-@sched.scheduled_job('interval', seconds=20)
+@sched.scheduled_job('interval', seconds=60)
 def timed_job():
     gather_traffic()
 

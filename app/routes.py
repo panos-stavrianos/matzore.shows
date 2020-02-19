@@ -321,13 +321,16 @@ def monitor_traffic(json):
 
 
 def get_autopilot():
-    data = requests.get('http://147.52.224.130:9670').json()
-    dataFinal = {'current_song': data.pop('current_song'), 'next_song': data.pop('next_song')}
-    dataFinal['current_song']["name"] = 'Current Song'
-    dataFinal['current_song']['percent'] = \
-        str(int((int(dataFinal['current_song']['Elapsed']) / int(dataFinal['current_song']['Duration'])) * 100))
-    dataFinal['next_song']["name"] = 'Next Song'
-    dataFinal['next_song']['percent'] = 0
+    try:
+        data = requests.get('http://147.52.224.130:9670').json()
+        dataFinal = {'current_song': data.pop('current_song'), 'next_song': data.pop('next_song')}
+        dataFinal['current_song']["name"] = 'Current Song'
+        dataFinal['current_song']['percent'] = \
+            str(int((int(dataFinal['current_song']['Elapsed']) / int(dataFinal['current_song']['Duration'])) * 100))
+        dataFinal['next_song']["name"] = 'Next Song'
+        dataFinal['next_song']['percent'] = 0
+    except:
+        return {}
     return dataFinal
 
 
