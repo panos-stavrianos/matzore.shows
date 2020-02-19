@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="justify-content-center row">
-        <div class="col-md-6">
+        <div class="col-12">
             <div class="card border-primary ">
                 <div class="card-header text-white bg-primary ">
                     Προσθέστε/Ενημερώστε εκπομπή
@@ -39,7 +39,9 @@
 
                         <div class="form-group">
                             {{ form.description.label }}
-                            {{ form.description(class_="form-control") }}
+                            <div class="card-body bg-white rounded">
+                                <div id="description" data-browse="{{ form.description.data }}"></div>
+                            </div>
                         </div>
 
                         <h2>Social</h2>

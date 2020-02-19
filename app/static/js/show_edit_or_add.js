@@ -1,4 +1,8 @@
 $(function () {
+
+});
+$(document).ready(function () {
+
     $(document).on("change", ".uploadFile", function () {
         var uploadFile = $(this);
         var files = !!this.files ? this.files : [];
@@ -17,5 +21,14 @@ $(function () {
             }
         }
 
+    });
+
+    let description = $('#description').data("browse");
+    var editor = new tui.Editor({
+        el: document.querySelector('#description'),
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        height: '300px',
+        initialValue: description
     });
 });
