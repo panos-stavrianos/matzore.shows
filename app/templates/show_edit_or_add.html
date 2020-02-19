@@ -9,7 +9,7 @@
                     Προσθέστε/Ενημερώστε εκπομπή
                 </div>
                 <div class="card-body">
-                    <form name="form" action="/show_submit" id="form" class="form-horizontal"
+                    <form name="form" id="show_form" action="/show_submit" id="form" class="form-horizontal"
                           enctype="multipart/form-data"
                           method="POST">
                         {{ form.hidden_tag() }}
@@ -40,7 +40,7 @@
                         <div class="form-group">
                             {{ form.description.label }}
                             <div class="card-body bg-white rounded">
-                                <div id="description" data-browse="{{ form.description.data }}"></div>
+                                <div id="description_editor" data-browse="{{ form.description.data }}"></div>
                             </div>
                         </div>
 

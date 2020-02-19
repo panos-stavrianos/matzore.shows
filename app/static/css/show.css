@@ -57,3 +57,8 @@ ul.social li a:hover i {
 .social li a.instagram:hover {
     background-color: #bd3990;
 }
+
+.img-show {
+    max-width: 500px;
+    max-height: 800px
+}

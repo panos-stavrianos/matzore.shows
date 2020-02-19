@@ -17,9 +17,9 @@
 
         <div class="row">
 
-            <div class="col-md-5">
-                <img class="img-fluid" src="{{ show.logo }}" alt="">
-                <ul class="social m-3 text-right">
+            <div class="col-md-auto">
+                <img class="img-fluid img-show" src="{{ show.logo }}" alt="">
+                <ul class="social m-3 text-center">
                     {% if show.facebook %}
                         <li><a href="{{ show.facebook }}" class="facebook" title="Facebook"><i
                                 class="fab fa-facebook"></i></a>
@@ -38,7 +38,7 @@
 
             </div>
 
-            <div class="col-md-7">
+            <div class="col-md">
                 <h3>Περιγραφή</h3>
                 <div class="card-body bg-white rounded">
                     <div id="description" data-browse="{{ show.description }}"></div>

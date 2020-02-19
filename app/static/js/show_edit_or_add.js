@@ -1,8 +1,4 @@
-$(function () {
-
-});
 $(document).ready(function () {
-
     $(document).on("change", ".uploadFile", function () {
         var uploadFile = $(this);
         var files = !!this.files ? this.files : [];
@@ -23,12 +19,20 @@ $(document).ready(function () {
 
     });
 
-    let description = $('#description').data("browse");
-    var editor = new tui.Editor({
-        el: document.querySelector('#description'),
+    let description = $('#description_editor').data("browse");
+
+    description_editor = new tui.Editor({
+        el: document.querySelector('#description_editor'),
         initialEditType: 'markdown',
         previewStyle: 'vertical',
         height: '300px',
-        initialValue: description
+        initialValue: description,
+        hideModeSwitch: true
     });
+
+
+    $("#show_form").submit(function (event) {
+        $('#description_editor').html(`<textarea id="description" name="description" required="">${description_editor.getMarkdown()}</textarea>`);
+    });
+
 });
