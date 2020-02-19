@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 from datatables import ColumnDT, DataTables
@@ -303,7 +303,9 @@ def traffic():
 
 @app.route('/get_traffic', strict_slashes=False, methods=['GET'])
 def get_traffic():
-    records = Traffic.query.filter(Traffic.radio_name == 'matzore').all()
+    four_hours_ago = datetime.now() - timedelta(hours=4)
+
+    records = Traffic.query.filter(Traffic.radio_name == 'matzore', Traffic.time > four_hours_ago).all()
     data = {'data': []}
     for record in records:
         data['data'].append([datetime.timestamp(record.date_time) * 1000, record.listeners])
