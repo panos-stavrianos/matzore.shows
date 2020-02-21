@@ -12,24 +12,6 @@ String.prototype.hash = function () {
     }).join('');
 };
 
-function start_backup(name) {
-    if (confirm('Are you sure you want run this backup now?'))
-        $.ajax({
-            url: '/backup/' + name
-        }).done(function () {
-            console.log('started')
-        });
-}
-
-function clear_logs(name) {
-    if (confirm('Are you sure you want to clear all logs?'))
-        $.ajax({
-            url: '/clear_logs/' + name
-        }).done(function () {
-            console.log('done')
-        });
-}
-
 function show_sidebar(val) {
     if (val) {//to show
         $('#accSidebar').removeClass('d-none');
@@ -67,4 +49,7 @@ $(document).ready(() => {
         "min-width": "70px",
     });
 
+
 });
+
+

@@ -46,4 +46,17 @@ class Traffic(db.Model):
         return '<Traffic {}>'.format(self.name)
 
 
+class PlayingNow(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    message = db.Column(db.String(200))
+    start_time = db.Column(DateTime(), default=func.now())
+    until_time = db.Column(DateTime(), default=func.now())
+
+    show_id = db.Column(db.Integer, db.ForeignKey(Show.id))
+    show = db.relationship(Show, uselist=False)
+
+    def __repr__(self):
+        return '<PlayingNow {}>'.format(self.message)
+
+
 db.create_all()

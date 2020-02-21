@@ -7,11 +7,12 @@ from flask_socketio import emit
 from flask_wtf import FlaskForm
 from gevent import sleep
 from google.cloud import storage
-from wtforms import PasswordField, SubmitField, StringField, FileField, SelectMultipleField, HiddenField, TextAreaField
+from wtforms import PasswordField, SubmitField, StringField, FileField, SelectMultipleField, HiddenField, TextAreaField, \
+    TimeField, SelectField
 from wtforms.validators import DataRequired
 
 from app import app, db, socketio
-from app.models import Member, Show, Traffic
+from app.models import Member, Show, Traffic, PlayingNow
 from app.tools import cdn
 
 
@@ -31,7 +32,7 @@ class ShowForm(FlaskForm):
     instagram = StringField('Instagram')
     twitter = StringField('Twitter')
 
-    submit = SubmitField('Προσθήκη')
+    submit = SubmitField('Καταχώριση')
 
 
 class MemberForm(FlaskForm):
@@ -41,7 +42,15 @@ class MemberForm(FlaskForm):
     facebook = StringField('Facebook')
     phone = StringField('Τηλέφωνο')
 
-    submit = SubmitField('Προσθήκη')
+    submit = SubmitField('Καταχώριση')
+
+
+class PlayingNowForm(FlaskForm):
+    id = HiddenField("id")
+    message = StringField('Μήνυμα')
+    show = SelectField('Εκπομπή')
+    until = TimeField('Μέχρι')
+    submit = SubmitField('Καταχώριση')
 
 
 @app.route('/<path:path>')
@@ -54,7 +63,6 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-
         if app.config['SECRET_KEY'] == form.password.data:
             session['authenticated'] = form.password.data
             return redirect('/')
@@ -341,7 +349,11 @@ def get_autopilot():
 def autopilot():
     if 'authenticated' not in session:
         return redirect('/login')
-    return render_template('autopilot.html', page='autopilot', title='Auto Pilot', cdn=cdn, data=get_autopilot())
+    form = PlayingNowForm()
+    form.show.choices = list(map(lambda show: (str(show.id), show.name), Show.query.all()))
+
+    return render_template('autopilot.html', page='autopilot', title='Auto Pilot', cdn=cdn, data=get_autopilot(),
+                           form=form)
 
 
 @socketio.on('monitor_autopilot')
@@ -349,3 +361,37 @@ def monitor_autopilot(json):
     while (1):
         emit('get_autopilot', get_autopilot())
         sleep(2)
+
+
+@app.route('/pilot_submit', strict_slashes=False, methods=['GET', 'POST'])
+def pilot_add_edit():
+    if 'authenticated' not in session:
+        return redirect('/login')
+    form = PlayingNowForm()
+    form.show.choices = list(map(lambda show: (str(show.id), show.name), Show.query.all()))
+    now = datetime.now()
+    if form.validate_on_submit():  # it's submit!
+
+        until = datetime.combine(now,
+                                 form.until.data)
+        if now > until:
+            until = until + timedelta(days=1)
+
+        playing_now = PlayingNow(show_id=form.show.data,
+                                 until_time=until,
+                                 message=form.message.data)
+        print(playing_now)
+        db.session.add(playing_now)
+        db.session.commit()
+    return redirect('/autopilot')
+
+
+@app.route('/get_show_playing', strict_slashes=False, methods=['GET'])
+def get_show_playing():
+    playing_now = PlayingNow.query.order_by(PlayingNow.id.desc()).first()
+    if playing_now.until_time > datetime.now():
+        playing_now_json = {'name': playing_now.show.name, 'cover': playing_now.show.logo,
+                            'message': playing_now.message}
+        return playing_now_json
+    else:
+        return {}

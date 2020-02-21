@@ -15,10 +15,12 @@ cdn = [
         'https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css',
         'https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css',
         'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css',
-        "https://uicdn.toast.com/tui-editor/latest/tui-editor.css",
-        "https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css",
+        'https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css',
         "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css",
         "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/tui-editor/1.4.10/tui-editor-contents.min.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/tui-editor/1.4.10/tui-editor.min.css",
+
     ], [
         'https://code.jquery.com/jquery-3.4.1.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js',
@@ -44,6 +46,7 @@ cdn = [
         "https://code.highcharts.com/highcharts-more.js",
         "https://code.highcharts.com/modules/solid-gauge.js",
         'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js',
-        'https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/tui-editor/1.4.10/tui-editor-Editor-full.min.js',
     ]
 ]
