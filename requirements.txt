@@ -29,7 +29,7 @@ pyasn1-modules==0.2.8
 python-dateutil==2.8.1
 python-editor==1.0.4
 pytz==2019.3
-requests==2.22.0
+requests==2.23.0
 rsa==4.0
 six==1.14.0
 soupsieve==1.9.5
@@ -42,6 +42,6 @@ psycopg2
 configparser
 APScheduler==3.6.3
 flask-socketio
+python-socketio
 gevent-websocket
-gevent-socketio
 gevent
