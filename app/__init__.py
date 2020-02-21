@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from gevent import monkey
 
 monkey.patch_all()
@@ -10,6 +11,8 @@ from flask_sqlalchemy import SQLAlchemy
 from app.config import Config
 
 app = Flask(__name__, template_folder="templates")
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 

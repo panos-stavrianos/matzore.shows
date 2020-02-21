@@ -386,12 +386,15 @@ def pilot_add_edit():
     return redirect('/autopilot')
 
 
-@app.route('/get_show_playing', strict_slashes=False, methods=['GET'])
+@app.route('/api/get_show_playing', strict_slashes=False, methods=['GET'])
 def get_show_playing():
-    playing_now = PlayingNow.query.order_by(PlayingNow.id.desc()).first()
-    if playing_now.until_time > datetime.now():
-        playing_now_json = {'name': playing_now.show.name, 'cover': playing_now.show.logo,
-                            'message': playing_now.message}
-        return playing_now_json
-    else:
+    try:
+        playing_now = PlayingNow.query.order_by(PlayingNow.id.desc()).first()
+        if playing_now.until_time > datetime.now():
+            playing_now_json = {'name': playing_now.show.name, 'cover': playing_now.show.logo,
+                                'message': playing_now.message}
+            return playing_now_json
+        else:
+            return {}
+    except:
         return {}

@@ -45,3 +45,4 @@ flask-socketio
 python-socketio
 gevent-websocket
 gevent
+flask-cors
