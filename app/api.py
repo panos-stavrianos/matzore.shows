@@ -21,7 +21,7 @@ def api_get_show_playing():
 @app.route('/api/get_shows', methods=['GET'])
 def api_get_shows():
     try:
-        shows=list(map(lambda show:show.to_dict_full(),Show.query.all()))
+        shows = list(map(lambda show: show.to_dict_full(), Show.query.all()))
         return jsonify(shows)
     except Exception as e:
         print(e)
