@@ -19,7 +19,9 @@ def api_get_show_playing():
 @app.route('/api/get_shows', methods=['GET'])
 def api_get_shows():
     try:
-        return {'shows': list(map(lambda show: show.to_dict(), Show.query.all()))}
+        shows = Show.query.all()
+        shows = list(map(lambda show: show.to_dict(), shows))
+        return {'shows': shows}
     except Exception as e:
         print(e)
         return {}
