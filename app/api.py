@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from flask import jsonify
+
 from app import app
 from app.models import PlayingNow, Show
 
@@ -20,11 +22,11 @@ def api_get_show_playing():
 def api_get_shows():
     try:
         shows = Show.query.all()
-        shows_json = {'shows': []}
+        shows_json = []
         for show in shows:
-            shows_json['shows'].append(show.to_dict_full())
+            shows_json.append(show.to_dict_full())
             print(show)
-        return shows_json
+        return jsonify(shows_json)
     except Exception as e:
         print(e)
         return {}
