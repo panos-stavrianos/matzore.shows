@@ -386,6 +386,18 @@ def pilot_add_edit():
     return redirect('/autopilot')
 
 
+@app.route('/show_playing_clear')
+def show_playing_clear():
+    if 'authenticated' not in session:
+        return redirect('/login')
+    try:
+        db.session.query(PlayingNow).delete()
+        db.session.commit()
+    except:
+        pass
+    return redirect('/autopilot')
+
+
 @app.route('/api/get_show_playing', strict_slashes=False, methods=['GET'])
 def get_show_playing():
     try:
