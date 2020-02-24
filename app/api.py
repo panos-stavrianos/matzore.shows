@@ -20,8 +20,11 @@ def api_get_show_playing():
 def api_get_shows():
     try:
         shows = Show.query.all()
-        shows = list(map(lambda show: show.to_dict(), shows))
-        return {'shows': shows}
+        shows_json = {'shows': []}
+        for show in shows:
+            shows_json['shows'].append(show.to_dict_full())
+            print(show)
+        return shows_json
     except Exception as e:
         print(e)
         return {}
