@@ -1,4 +1,5 @@
 from sqlalchemy import DateTime, func
+from sqlalchemy_serializer import SerializerMixin
 
 from app import db
 
@@ -7,7 +8,7 @@ show_have_members = db.Table('show_have_members',
                              db.Column('member_id', db.Integer, db.ForeignKey('member.id'), primary_key=True))
 
 
-class Member(db.Model):
+class Member(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=True)
     email = db.Column(db.String(120), unique=True)
@@ -20,7 +21,7 @@ class Member(db.Model):
         return '<Member {}>'.format(self.name)
 
 
-class Show(db.Model):
+class Show(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=True)
     description = db.Column(db.Text)
@@ -36,7 +37,7 @@ class Show(db.Model):
         return '<Show {}>'.format(self.name)
 
 
-class Traffic(db.Model):
+class Traffic(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     radio_name = db.Column(db.String(200))
     listeners = db.Column(db.Integer)
@@ -46,7 +47,7 @@ class Traffic(db.Model):
         return '<Traffic {}>'.format(self.name)
 
 
-class PlayingNow(db.Model):
+class PlayingNow(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(200))
     start_time = db.Column(DateTime(), default=func.now())

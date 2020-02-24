@@ -398,15 +398,3 @@ def show_playing_clear():
     return redirect('/autopilot')
 
 
-@app.route('/api/get_show_playing', strict_slashes=False, methods=['GET'])
-def get_show_playing():
-    try:
-        playing_now = PlayingNow.query.order_by(PlayingNow.id.desc()).first()
-        if playing_now.until_time > datetime.now():
-            playing_now_json = {'name': playing_now.show.name, 'cover': playing_now.show.logo,
-                                'message': playing_now.message, 'now': datetime.now()}
-            return playing_now_json
-        else:
-            return {}
-    except:
-        return {}

@@ -19,4 +19,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 socketio = SocketIO(app)
 
-from app import routes, models
+from app import routes, models, api
