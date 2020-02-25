@@ -13,7 +13,7 @@ from wtforms.validators import DataRequired
 
 from app import app, db, socketio
 from app.models import Member, Show, Traffic, PlayingNow
-from app.tools import cdn
+from app.tools import cdn, default_avatar, default_logo
 
 
 class LoginForm(FlaskForm):
@@ -39,9 +39,12 @@ class ShowForm(FlaskForm):
 class MemberForm(FlaskForm):
     id = HiddenField("id")
     name = StringField('Όνομα', validators=[DataRequired()])
+    display_name = StringField('Ψευδώνυμο')
+    bio = TextAreaField('Bio')
     email = StringField('Email')
     facebook = StringField('Facebook')
     phone = StringField('Τηλέφωνο')
+    member_avatar = FileField()
 
     submit = SubmitField('Καταχώριση')
 
@@ -83,7 +86,8 @@ def member(member_id):
     if 'authenticated' not in session:
         return redirect('/login')
     member = Member.query.get(int(member_id))
-    return render_template('member.html', page='member', title='Μέλος', cdn=cdn, member=member)
+    return render_template('member.html', page='member', title='Μέλος', cdn=cdn, member=member,
+                           default_avatar=default_avatar)
 
 
 @app.route('/member_add', strict_slashes=False)
@@ -93,18 +97,25 @@ def member_add_edit(member_id=None):
     if 'authenticated' not in session:
         return redirect('/login')
     form = MemberForm()
-
+    avatar = default_avatar
     if form.validate_on_submit():  # it's submit!
         print("validate_on_submit")
         if form.id.data:
             member = Member.query.get(int(form.id.data))
             member.name = form.name.data
+            member.display_name = form.display_name.data
+            member.bio = form.bio.data
             member.email = form.email.data
             member.facebook = form.facebook.data
             member.phone = form.phone.data
+            if form.member_avatar.data:
+                member.avatar = upload(form.member_avatar.data)
         else:
             member = Member(name=form.name.data,
                             email=form.email.data,
+                            display_name=form.display_name.data,
+                            bio=form.bio.data,
+                            avatar=upload(form.member_avatar.data),
                             facebook=form.facebook.data,
                             phone=form.phone.data)
         db.session.add(member)
@@ -115,11 +126,16 @@ def member_add_edit(member_id=None):
             member = Member.query.get(int(member_id))
             form.id.data = member.id
             form.name.data = member.name
+            form.display_name.data = member.display_name
+            form.bio.data = member.bio
+            form.member_avatar.data = member.avatar
             form.email.data = member.email
             form.phone.data = member.phone
             form.facebook.data = member.facebook
-
-    return render_template('member_edit_or_add.html', page='member_edit_or_add', title='Mέλος', cdn=cdn, form=form)
+            if member.avatar:
+                avatar = member.avatar
+    return render_template('member_edit_or_add.html', page='member_edit_or_add', title='Mέλος', cdn=cdn, form=form,
+                           avatar=avatar)
 
 
 @app.route('/show_delete/<show_id>')
@@ -162,7 +178,8 @@ def show(show_id):
     if 'authenticated' not in session:
         return redirect('/login')
     show = Show.query.get(int(show_id))
-    return render_template('show.html', page='show', title='Εκπομπές', cdn=cdn, show=show)
+
+    return render_template('show.html', page='show', title='Εκπομπές', cdn=cdn, show=show, default_logo=default_logo)
 
 
 @app.route('/show_add', strict_slashes=False)
@@ -173,8 +190,8 @@ def show_add_edit(show_id=None):
         return redirect('/login')
     form = ShowForm()
     form.members.choices = list(map(lambda member: (str(member.id), member.name), Member.query.all()))
+    logo = default_logo
 
-    logo = 'https://images.unsplash.com/photo-1507808973436-a4ed7b5e87c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80'
     if form.validate_on_submit():  # it's submit!
         print("validate_on_submit")
         if form.id.data:  # edit

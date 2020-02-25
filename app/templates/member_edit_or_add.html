@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="justify-content-center row">
-        <div class="col-md-6">
+        <div class="col-12">
             <div class="card border-primary ">
                 <div class="card-header text-white bg-primary ">
                     Προσθέστε/Ενημερώστε Μέλος
@@ -19,6 +19,15 @@
                             {{ form.name(class_="form-control") }}
                         </div>
 
+                        <div class="form-group">
+                            {{ form.display_name.label }}
+                            {{ form.display_name(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.bio.label }}
+                            {{ form.bio(class_="form-control") }}
+                        </div>
 
                         <div class="form-group">
                             {{ form.email.label }}
@@ -34,6 +43,18 @@
                         <div class="form-group">
                             {{ form.phone.label }}
                             {{ form.phone(class_="form-control") }}
+                        </div>
+
+                        <div class="imgUp">
+                            <img class="imagePreview m-2"
+                                 src="{{ avatar }}"/>
+
+                            <label class="btn btn-primary btn-primary_upload">
+                                Upload your Avatar<input type="file" class="uploadFile img" value="Upload Avatar"
+                                                       name="member_avatar" id="member_avatar"
+                                                       style="width: 0px;height: 0px;overflow: hidden;">
+
+                            </label>
                         </div>
 
                         <div class="form-group">

@@ -60,5 +60,6 @@ ul.social li a:hover i {
 
 .img-show {
     max-width: 400px;
-    max-height: 500px
+    max-height: 500px;
+    border-radius: 3%;
 }

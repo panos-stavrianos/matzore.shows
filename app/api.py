@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import jsonify
 
 from app import app
-from app.models import PlayingNow, Show
+from app.models import PlayingNow, Show, Member
 
 
 @app.route('/api/get_show_playing', methods=['GET'])
@@ -23,6 +23,36 @@ def api_get_shows():
     try:
         shows = list(map(lambda show: show.to_dict_full(), Show.query.all()))
         return jsonify(shows)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_show/<show_id>', methods=['GET'])
+def api_get_show(show_id):
+    try:
+        show = Show.query.get(show_id).to_dict_full()
+        return jsonify(show)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_members', methods=['GET'])
+def api_get_members():
+    try:
+        members = list(map(lambda member: member.to_dict_full(), Member.query.all()))
+        return jsonify(members)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_member/<member_id>', methods=['GET'])
+def api_get_member(member_id):
+    try:
+        member = Member.query.get(member_id).to_dict_full()
+        return jsonify(member)
     except Exception as e:
         print(e)
         return {}
