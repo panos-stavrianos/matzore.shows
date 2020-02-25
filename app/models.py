@@ -46,7 +46,7 @@ class Show(db.Model):
         return {'id': self.id,
                 'name': self.name,
                 'description': self.description,
-                'short_description': self.description,
+                'short_description': self.short_description,
                 'email': self.email,
                 'facebook': self.facebook,
                 'instagram': self.instagram,
