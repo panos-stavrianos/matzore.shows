@@ -10,15 +10,21 @@ show_have_members = db.Table('show_have_members',
 class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=True)
+    display_name = db.Column(db.String(200), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
     email = db.Column(db.String(120), unique=True)
     facebook = db.Column(db.String(500), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
+    avatar = db.Column(db.String(500), nullable=True)
     shows = db.relationship('Show', secondary=show_have_members, lazy='subquery',
                             backref=db.backref('shows', lazy=True))
 
     def to_dict(self):
+        name = self.display_name if self.display_name else self.name
         return {'id': self.id,
-                'name': self.name}
+                'name': name,
+                'bio': self.bio,
+                'avatar': self.avatar}
 
     def to_dict_full(self):
         member = self.to_dict()
