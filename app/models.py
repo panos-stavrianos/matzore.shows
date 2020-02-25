@@ -32,6 +32,7 @@ class Member(db.Model):
 class Show(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), unique=True)
+    short_description = db.Column(db.String(500))
     description = db.Column(db.Text)
     email = db.Column(db.String(120), nullable=True)
     facebook = db.Column(db.String(500), nullable=True)
@@ -45,6 +46,7 @@ class Show(db.Model):
         return {'id': self.id,
                 'name': self.name,
                 'description': self.description,
+                'short_description': self.description,
                 'email': self.email,
                 'facebook': self.facebook,
                 'instagram': self.instagram,
