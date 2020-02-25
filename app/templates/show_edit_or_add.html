@@ -20,6 +20,11 @@
                         </div>
 
                         <div class="form-group">
+                            {{ form.short_description.label }}
+                            {{ form.short_description(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
                             {{ form.members.label }}
                             {{ form.members(class_="selectpicker form-control", **{'data-live-search': 'true','data-width':"auto",'data-style':"btn-primary"}) }}
 

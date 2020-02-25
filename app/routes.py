@@ -24,6 +24,7 @@ class LoginForm(FlaskForm):
 class ShowForm(FlaskForm):
     id = HiddenField("id")
     name = StringField('Όνομα εκπομπής', validators=[DataRequired()])
+    short_description = StringField('Σύντομη περιγραφή', validators=[DataRequired()])
     description = TextAreaField('Περιγραφή', validators=[DataRequired()])
     members = SelectMultipleField('Μέλη')
     show_logo = FileField()
@@ -179,6 +180,7 @@ def show_add_edit(show_id=None):
         if form.id.data:  # edit
             show = Show.query.get(int(form.id.data))
             show.name = form.name.data
+            show.short_description = form.short_description.data
             show.description = form.description.data
             show.email = form.email.data
             show.facebook = form.facebook.data
@@ -189,6 +191,7 @@ def show_add_edit(show_id=None):
             show.members = list(map(lambda member_id: Member.query.get(int(member_id)), form.members.data))
         else:  # add
             show = Show(name=form.name.data,
+                        short_description=form.short_description.data,
                         description=form.description.data,
                         email=form.email.data,
                         facebook=form.facebook.data,
@@ -205,6 +208,7 @@ def show_add_edit(show_id=None):
             show = Show.query.get(int(show_id))
             form.id.data = show.id
             form.name.data = show.name
+            form.short_description.data = show.short_description
             form.description.data = show.description
             form.email.data = show.email
             form.facebook.data = show.facebook
@@ -281,7 +285,7 @@ def get_shows():
     columns = [
         ColumnDT(Show.id, mData='id'),
         ColumnDT(Show.name, mData='name'),
-        ColumnDT(Show.description, mData='description'),
+        ColumnDT(Show.short_description, mData='short_description'),
         ColumnDT(Show.email, mData='email'),
         ColumnDT(Show.facebook, mData='facebook'),
         ColumnDT(Show.instagram, mData='instagram'),
@@ -396,5 +400,3 @@ def show_playing_clear():
     except:
         pass
     return redirect('/autopilot')
-
-
