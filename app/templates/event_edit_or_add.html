@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="justify-content-center row">
+        <div class="col-12">
+            <div class="card border-primary ">
+                <div class="card-header text-white bg-primary ">
+                    Προσθέστε/Ενημερώστε Εκδήλωση
+                </div>
+                <div class="card-body">
+                    <form name="form" id="event_form" action="/event_submit" id="form" class="form-horizontal"
+                          enctype="multipart/form-data"
+                          method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-group">
+                            {{ form.title.label }}
+                            {{ form.title(class_="form-control") }}
+                        </div>
+
+                        <div id='event_date_container'>
+                            <div class="form-group">
+                                {{ form.event_date.label }}
+                                {{ form.event_date(class_='datetimepicker',  width= '276') }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.location.label }}
+                            {{ form.location(class_="form-control") }}
+                        </div>
+
+                        <label>Συντεταγμένες</label>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">lat</span>
+                                    </div>
+                                    {{ form.lat(class_="form-control") }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">lng</span>
+                                    </div>
+                                    {{ form.lng(class_="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            {{ form.published.label }}
+                            {{ form.published(**{'data-toggle': 'toggle'}) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.short_description.label }}
+                            {{ form.short_description(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.tags.label }}
+                            {{ form.tags }}
+                        </div>
+
+                        <div class="imgUp">
+                            <img class="imagePreview m-2"
+                                 src="{{ form.cover }}"/>
+
+                            <label class="btn btn-primary btn-primary_upload">
+                                Upload a cover photo
+                                <input type="file" class="uploadFile img" value="Upload Photo"
+                                       name="event_cover" id="event_cover"
+                                       style="width: 0px;height: 0px;overflow: hidden;">
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.body.label }}
+                            <div class="card-body bg-white rounded">
+                                <div id="description_editor" data-browse="{{ form.body.data }}"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-12 controls">
+                                <button type="submit" class="btn btn-outline-success pull-right"><i
+                                        class="fa fa-log-in"></i> Καταχώριση
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

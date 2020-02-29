@@ -11,9 +11,11 @@ $(document).ready(function () {
         hideModeSwitch: true
     });
 
-
-    $("#show_form").submit(function (event) {
-        $('#description_editor').html(`<textarea id="description" name="description" required="">${description_editor.getMarkdown()}</textarea>`);
+    $(".js-example-tags").select2({
+        tags: true
+    });
+    $("#article_form").submit(function (event) {
+        $('#description_editor').html(`<textarea id="body" name="body" required="">${description_editor.getMarkdown()}</textarea>`);
     });
 
 });

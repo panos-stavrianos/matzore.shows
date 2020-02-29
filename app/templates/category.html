@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container text-gray-300">
+        <div class="row m-2">
+            <!-- Portfolio Item Heading -->
+            <h2 class="m-2 col-auto">{{ category.name }}  </h2>
+            <div class="col-auto">
+                <a href="/category_edit/{{ category.id }}" class="btn btn-outline-primary m-2" role="button"
+                   aria-pressed="true">Επεξεργασία</a>
+                <a href="/category_delete/{{ category.id }}" class="btn btn-outline-danger m-2"
+                   onclick="return confirm('Σίγουρα θέλετε να διαγράψετε την κατηγορία {{ category.name }}')"
+                   role="button"
+                   aria-pressed="true">Διαγραφή</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+                <h3>Άρθρα</h3>
+                <ul>
+                    {% for article in category.articles %}
+                        <li><a href="/article/{{ article.id }}"
+                               title="Δείτε περισσότερα">{{ article.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+{% endblock %}

@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import jsonify
 
 from app import app
-from app.models import PlayingNow, Show, Member
+from app.models import PlayingNow, Show, Member, Article, Event
 
 
 @app.route('/api/get_show_playing', methods=['GET'])
@@ -21,7 +21,7 @@ def api_get_show_playing():
 @app.route('/api/get_shows', methods=['GET'])
 def api_get_shows():
     try:
-        shows = list(map(lambda show: show.to_dict_full(), Show.query.all()))
+        shows = list(map(lambda show: show.to_dict(), Show.query.all()))
         return jsonify(shows)
     except Exception as e:
         print(e)
@@ -41,7 +41,7 @@ def api_get_show(show_id):
 @app.route('/api/get_members', methods=['GET'])
 def api_get_members():
     try:
-        members = list(map(lambda member: member.to_dict_full(), Member.query.all()))
+        members = list(map(lambda member: member.to_dict(), Member.query.all()))
         return jsonify(members)
     except Exception as e:
         print(e)
@@ -53,6 +53,46 @@ def api_get_member(member_id):
     try:
         member = Member.query.get(member_id).to_dict_full()
         return jsonify(member)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_articles', methods=['GET'])
+def api_get_articles():
+    try:
+        articles = list(map(lambda article: article.to_dict(), Article.query.all()))
+        return jsonify(articles)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_article/<article_id>', methods=['GET'])
+def api_get_article(article_id):
+    try:
+        article = Article.query.get(article_id).to_dict_full()
+        return jsonify(article)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_events', methods=['GET'])
+def api_get_events():
+    try:
+        events = list(map(lambda event: event.to_dict(), Event.query.all()))
+        return jsonify(events)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_event/<event_id>', methods=['GET'])
+def api_get_event(event_id):
+    try:
+        event = Event.query.get(event_id).to_dict_full()
+        return jsonify(event)
     except Exception as e:
         print(e)
         return {}

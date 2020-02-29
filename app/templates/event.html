@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container text-gray-300">
+        <div class="row m-2">
+            <!-- Portfolio Item Heading -->
+            <h2 class="m-2 col-auto">{{ event.title }}  </h2>
+            <div class="col-auto">
+                <a href="/event_edit/{{ event.id }}" class="btn btn-outline-primary m-2" role="button"
+                   aria-pressed="true">Επεξεργασία</a>
+                <a href="/event_delete/{{ event.id }}" class="btn btn-outline-danger m-2"
+                   onclick="return confirm('Σίγουρα θέλετε να διαγράψετε το άρθρο {{ event.title }}')" role="button"
+                   aria-pressed="true">Διαγραφή</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-auto">
+                <img class="img-fluid img-show" src="{{ event.cover if event.cover else default_cover }}" alt="">
+            </div>
+
+            <div class="col-md">
+                {% if event.published %}
+                    <span class="badge badge-success">Δημοσιευμένο</span>
+                {% else %}
+                    <span class="badge badge-danger">Μη Δημοσιευμένο</span>
+                {% endif %}
+                {% if event.tags %}
+                    {% for tag in event.tags %}
+                        <span class="badge badge-light">
+                        <a href="/tag/{{ tag.id }}" title="Δείτε περισσότερα">{{ tag.name }}</a>
+                        </span>
+                    {% endfor %}
+                {% endif %}
+                <br/>
+                <br/>
+                <h4>Σύντομη περιγραφή</h4>
+                <h6 class="m-2 col-auto">{{ event.short_description }}  </h6>
+                <br/>
+                <h4>Τοποθεσία</h4>
+                <h6 class="m-2 col-auto">{{ event.location }}  </h6>
+                {{ googlemap("event_map", lat=lat, lng=lng,zoom=17, markers=[(lat, lng) ],style='height: 50%;width: 100%;') }}
+
+                <br/>
+                <h4>Πλήρες κείμενο</h4>
+                <div class="card-body bg-white rounded">
+                    <div id="description" data-browse="{{ event.body }}"></div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+{% endblock %}
+
+

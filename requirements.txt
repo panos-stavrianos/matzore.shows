@@ -46,3 +46,4 @@ python-socketio
 gevent-websocket
 gevent
 flask-cors
+flask-googlemaps

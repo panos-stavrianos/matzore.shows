@@ -28,24 +28,38 @@
                 </ul>
                 <h5 class="text-white ">{{ member.phone }}</h5>
                 <h5 class="text-white">{{ member.email }}</h5>
-
-
             </div>
             <div class="col-md">
+                <br/>
                 <h3>Ψευδώνυμο</h3>
                 <h6 class="m-2 col-auto">{{ member.display_name }}  </h6>
 
+                <br/>
                 <h3>Bio</h3>
                 <h6 class="m-2 col-auto">{{ member.bio }}  </h6>
+                {% if member.shows %}
+                    <br/>
+                    <h3>Εκπομπές</h3>
+                    <ul>
+                        {% for show in member.shows %}
+                            <li><a href="/show/{{ show.id }}"
+                                   title="Δείτε περισσότερα">{{ show.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
-                <h3>Εκπομπές</h3>
-                <ul>
-                    {% for show in member.shows %}
-                        <li><a href="/show/{{ show.id }}"
-                               title="Δείτε περισσότερα">{{ show.name }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if member.articles %}
+                    <br/>
+                    <h3>Άρθρα</h3>
+                    <ul>
+                        {% for article in member.articles %}
+                            <li><a href="/article/{{ article.id }}"
+                                   title="Δείτε περισσότερα">{{ article.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
         <!-- /.row -->

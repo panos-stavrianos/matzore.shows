@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Page Content -->
+    <div class="container text-gray-300">
+        <div class="row m-2">
+            <!-- Portfolio Item Heading -->
+            <h2 class="m-2 col-auto">{{ article.title }}  </h2>
+            <div class="col-auto">
+                <a href="/article_edit/{{ article.id }}" class="btn btn-outline-primary m-2" role="button"
+                   aria-pressed="true">Επεξεργασία</a>
+                <a href="/article_delete/{{ article.id }}" class="btn btn-outline-danger m-2"
+                   onclick="return confirm('Σίγουρα θέλετε να διαγράψετε το άρθρο {{ article.title }}')" role="button"
+                   aria-pressed="true">Διαγραφή</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-auto">
+                <img class="img-fluid img-show" src="{{ article.cover if article.cover else default_cover }}" alt="">
+            </div>
+
+            <div class="col-md">
+                {% if article.published %}
+                    <span class="badge badge-success">Δημοσιευμένο</span>
+                {% else %}
+                    <span class="badge badge-danger">Μη Δημοσιευμένο</span>
+                {% endif %}
+                {% if article.tags %}
+                    {% for tag in article.tags %}
+                        <span class="badge badge-light">
+                        <a href="/tag/{{ tag.id }}" title="Δείτε περισσότερα">{{ tag.name }}</a>
+                        </span>
+                    {% endfor %}
+                {% endif %}
+                <br/>
+                <br/>
+                <h4>Σύντομη περιγραφή</h4>
+                <h6 class="m-2 col-auto">{{ article.short_description }}  </h6>
+                <br/>
+                <h4>Πλήρες κείμενο</h4>
+                <div class="card-body bg-white rounded">
+                    <div id="description" data-browse="{{ article.body }}"></div>
+                </div>
+                <br/>
+                <h4>Συγγραφείς</h4>
+                <ul>
+                    {% for author in article.authors %}
+                        <li><a href="/member/{{ author.id }}"
+                               title="Δείτε περισσότερα">{{ author.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <br/>
+                <h4>Κατηγορία:
+                    <a href="/category/{{ article.category.id }}"
+                       title="Δείτε περισσότερα">{{ article.category.name }}</a>
+                </h4>
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+{% endblock %}

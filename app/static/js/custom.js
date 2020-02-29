@@ -1,7 +1,10 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+String.prototype.remove_timezone = function () {
+    return this.replace(this.substr(this.indexOf('GMT')), '')
 
+};
 String.prototype.hash = function () {
     var self = this, range = Array(this.length);
     for (var i = 0; i < this.length; i++) {
@@ -49,6 +52,26 @@ $(document).ready(() => {
         "min-width": "70px",
     });
 
+
+    $(document).on("change", ".uploadFile", function () {
+        var uploadFile = $(this);
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+        if (/^image/.test(files[0].type)) { // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function () { // set image data as background of div
+                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                // uploadFile.closest(".imgUp").find('.imagePreview').s("src", "url(" + this.result + ")");
+                uploadFile.closest(".imgUp").find('.imagePreview').attr('src', this.result);
+
+
+            }
+        }
+
+    });
 
 });
 

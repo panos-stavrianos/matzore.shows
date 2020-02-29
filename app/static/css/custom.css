@@ -254,3 +254,101 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 .sidebar .sidebar-brand {
     text-transform: unset;
 }
+
+.imagePreview {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    max-height: 400px;
+}
+
+
+.btn-primary_upload {
+    display: block;
+    border-radius: 0px;
+    box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.2);
+    margin-top: -5px;
+}
+
+.imgUp {
+    margin-bottom: 15px;
+}
+
+.del {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+
+ul.social {
+    list-style: none;
+}
+
+ul.social li {
+    display: inline;
+    padding: 0;
+    margin: 0 5px;
+}
+
+ul.social li a {
+    display: inline-block;
+    margi: 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    position: relative;
+    background-color: #464646;
+}
+
+ul.social li a i {
+    color: #FFF;
+    text-align: center;
+    margin: 0;
+    line-height: 50px;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    transition: all 0.8s;
+}
+
+ul.social li a:hover i {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.social li a.facebook:hover {
+    background-color: #3B5998;
+}
+
+.social li a.twitter:hover {
+    background-color: #33ccff;
+}
+
+.social li a.instagram:hover {
+    background-color: #bd3990;
+}
+
+.img-show {
+    max-width: 400px;
+    max-height: 500px;
+    border-radius: 3%;
+}

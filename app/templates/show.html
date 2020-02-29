@@ -38,14 +38,17 @@
             </div>
 
             <div class="col-md">
+                <br/>
                 <h3>Σύντομη περιγραφή</h3>
                 <h6 class="m-2 col-auto">{{ show.short_description }}  </h6>
 
+                <br/>
                 <h3>Περιγραφή</h3>
                 <div class="card-body bg-white rounded">
                     <div id="description" data-browse="{{ show.description }}"></div>
                 </div>
 
+                <br/>
                 <h3>Μέλη</h3>
                 <ul>
                     {% for member in show.members %}
@@ -55,18 +58,8 @@
                     {% endfor %}
                 </ul>
             </div>
-
         </div>
         <!-- /.row -->
-
-
     </div>
     <!-- /.container -->
-
-
-
-
-
-
-
 {% endblock %}
