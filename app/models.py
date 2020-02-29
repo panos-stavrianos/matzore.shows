@@ -166,6 +166,7 @@ class Event(db.Model):
                 'title': self.title,
                 'short_description': self.short_description,
                 'body': self.body,
+                'cover': self.cover,
                 'location': self.location,
                 'coordinates': self.coordinates.split(',') if self.coordinates else [],
                 'event_date': self.event_date,
