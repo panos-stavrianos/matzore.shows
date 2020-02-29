@@ -1,3 +1,4 @@
+import dateutil
 from sqlalchemy import DateTime, func
 
 from app import db
@@ -169,8 +170,8 @@ class Event(db.Model):
                 'cover': self.cover,
                 'location': self.location,
                 'coordinates': self.coordinates.split(',') if self.coordinates else [],
-                'event_date': self.event_date,
-                'created_at': self.created_at,
+                'event_date': self.event_date.replace(tzinfo=dateutil.tz.tzlocal()),
+                'created_at': self.created_at.replace(tzinfo=dateutil.tz.tzlocal()),
                 'published': self.published}
 
     def to_dict_full(self):
