@@ -37,6 +37,9 @@
                 <h4>Σύντομη περιγραφή</h4>
                 <h6 class="m-2 col-auto">{{ event.short_description }}  </h6>
                 <br/>
+                <h4>Ημ/Ωρα</h4>
+                <h6 class="m-2 col-auto">{{ event.event_date.strftime('%H:%M %d/%m/%Y') }}  </h6>
+                <br/>
                 <h4>Τοποθεσία</h4>
                 <h6 class="m-2 col-auto">{{ event.location }}  </h6>
                 {{ googlemap("event_map", lat=lat, lng=lng,zoom=17, markers=[(lat, lng) ],style='height: 50%;width: 100%;') }}
