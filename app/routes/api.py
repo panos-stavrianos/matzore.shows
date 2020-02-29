@@ -61,7 +61,7 @@ def api_get_member(member_id):
 @app.route('/api/get_articles', methods=['GET'])
 def api_get_articles():
     try:
-        articles = list(map(lambda article: article.to_dict(), Article.query.all()))
+        articles = list(map(lambda article: article.to_dict(), Article.query.filter(Article.published == True).all()))
         return jsonify(articles)
     except Exception as e:
         print(e)
@@ -71,7 +71,7 @@ def api_get_articles():
 @app.route('/api/get_article/<article_id>', methods=['GET'])
 def api_get_article(article_id):
     try:
-        article = Article.query.get(article_id).to_dict_full()
+        article = Article.query.filter(Article.published == True and Article.id == article_id).first().to_dict_full()
         return jsonify(article)
     except Exception as e:
         print(e)
@@ -81,7 +81,7 @@ def api_get_article(article_id):
 @app.route('/api/get_events', methods=['GET'])
 def api_get_events():
     try:
-        events = list(map(lambda event: event.to_dict(), Event.query.all()))
+        events = list(map(lambda event: event.to_dict(), Event.query.filter(Event.published == True).all()))
         return jsonify(events)
     except Exception as e:
         print(e)
@@ -91,7 +91,7 @@ def api_get_events():
 @app.route('/api/get_event/<event_id>', methods=['GET'])
 def api_get_event(event_id):
     try:
-        event = Event.query.get(event_id).to_dict_full()
+        event = Event.query.filter(Event.published == True and Event.id == event_id).first().to_dict_full()
         return jsonify(event)
     except Exception as e:
         print(e)
