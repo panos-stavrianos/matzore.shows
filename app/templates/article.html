@@ -34,6 +34,11 @@
                 {% endif %}
                 <br/>
                 <br/>
+                <h4>Κατηγορία:
+                    <a href="/category/{{ article.category.id }}"
+                       title="Δείτε περισσότερα">{{ article.category.name }}</a>
+                </h4>
+                <br/>
                 <h4>Σύντομη περιγραφή</h4>
                 <h6 class="m-2 col-auto">{{ article.short_description }}  </h6>
                 <br/>
@@ -50,11 +55,6 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <br/>
-                <h4>Κατηγορία:
-                    <a href="/category/{{ article.category.id }}"
-                       title="Δείτε περισσότερα">{{ article.category.name }}</a>
-                </h4>
 
 
             </div>

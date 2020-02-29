@@ -13,7 +13,7 @@ def events():
     if 'authenticated' not in session:
         return redirect('/login')
 
-    return render_template('events.html', page='events', title='Άρθρα', cdn=cdn)
+    return render_template('events.html', page='events', title='Εκδηλώσεις', cdn=cdn)
 
 
 @app.route('/get_events')
@@ -37,7 +37,7 @@ def event(event_id):
         return redirect('/login')
     event = Event.query.get(int(event_id))
     lat, lng = event.coordinates.split(',')
-    return render_template('event.html', page='event', title='Άρθρα', cdn=cdn, event=event,
+    return render_template('event.html', page='event', title='Εκδηλώσεις', cdn=cdn, event=event,
                            default_cover=default_cover, lat=lat, lng=lng, )
 
 
@@ -74,7 +74,7 @@ def event_add_edit(event_id=None):
         if event_id:  # populate first for edit
             form.load_from_db(event_id)
 
-    return render_template('event_edit_or_add.html', page='event_edit_or_add', title='Άρθρα', cdn=cdn, form=form)
+    return render_template('event_edit_or_add.html', page='event_edit_or_add', title='Εκδηλώσεις', cdn=cdn, form=form)
 
 
 @app.route('/event_delete/<event_id>')
