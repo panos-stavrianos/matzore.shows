@@ -17,6 +17,7 @@ def api_get_show_playing():
             return playing_now_json
     except:
         return {}
+    return {}
 
 
 @app.route('/api/get_shows', methods=['GET'])
