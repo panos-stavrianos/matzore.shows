@@ -141,6 +141,7 @@ class Article(db.Model):
         article = self.to_dict()
         article['authors'] = list(map(lambda member: member.to_dict(), self.authors))
         article['category'] = self.category.to_dict()
+        article['tags'] = self.tags.to_dict()
         return article
 
     def __repr__(self):
