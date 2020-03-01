@@ -73,7 +73,7 @@ def api_get_articles():
 @app.route('/api/get_article/<article_id>', methods=['GET'])
 def api_get_article(article_id):
     try:
-        article = Article.query.filter(Article.published == True and Article.id == article_id).first().to_dict_full()
+        article = Article.query.filter(Article.published == True, Article.id == article_id).first().to_dict_full()
         return jsonify(article)
     except Exception as e:
         print(e)
@@ -93,7 +93,7 @@ def api_get_events():
 @app.route('/api/get_event/<event_id>', methods=['GET'])
 def api_get_event(event_id):
     try:
-        event = Event.query.filter(Event.published == True and Event.id == event_id).first().to_dict_full()
+        event = Event.query.filter(Event.published == True, Event.id == event_id).first().to_dict_full()
         return jsonify(event)
     except Exception as e:
         print(e)
