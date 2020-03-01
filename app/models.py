@@ -140,8 +140,8 @@ class Article(db.Model):
     def to_dict_full(self):
         article = self.to_dict()
         article['authors'] = list(map(lambda member: member.to_dict(), self.authors))
+        article['tags'] = list(map(lambda tag: tag.to_dict(), self.tags))
         article['category'] = self.category.to_dict()
-        article['tags'] = self.tags.to_dict()
         return article
 
     def __repr__(self):
@@ -220,6 +220,7 @@ class Tag(db.Model):
     def to_dict_full(self):
         tag = self.to_dict()
         tag['events'] = list(map(lambda event: event.to_dict(), self.events))
+        tag['article'] = list(map(lambda article: article.to_dict(), self.articles))
         return tag
 
     def __repr__(self):
