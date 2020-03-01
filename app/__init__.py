@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask_cors import CORS
 from flask_googlemaps import GoogleMaps
 from gevent import monkey

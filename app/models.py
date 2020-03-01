@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dateutil
 from sqlalchemy import DateTime, func
 

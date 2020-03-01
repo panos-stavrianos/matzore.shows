@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datatables import ColumnDT, DataTables
 from flask import render_template, session, request, jsonify
 from werkzeug.utils import redirect

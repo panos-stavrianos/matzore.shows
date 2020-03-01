@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 from flask import render_template, session
 from flask_socketio import emit

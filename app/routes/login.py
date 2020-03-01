@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template, session
 from werkzeug.utils import redirect
 
