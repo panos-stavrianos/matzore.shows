@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import jsonify
 
 from app import app
-from app.models import PlayingNow, Show, Member, Article, Event
+from app.models import PlayingNow, Show, Member, Article, Event, Tag, Category
 
 
 @app.route('/api/get_show_playing', methods=['GET'])
@@ -96,6 +96,49 @@ def api_get_event(event_id):
     try:
         event = Event.query.filter(Event.published == True, Event.id == event_id).first().to_dict_full()
         return jsonify(event)
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_tags', methods=['GET'])
+def api_get_tags():
+    try:
+        tags = list(map(lambda tag: tag.to_dict(), Tag.query.all()))
+        return jsonify({'tags': tags})
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_tag/<tag_id>', methods=['GET'])
+def api_get_tag(tag_id):
+    try:
+        tag = Tag.query.get(tag_id).to_dict_full()
+        events = list(filter(lambda event: event['published'], tag['events']))
+        articles = list(filter(lambda article: article['published'], tag['articles']))
+        return jsonify({'articles': articles, 'events': events})
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_categories', methods=['GET'])
+def api_get_categories():
+    try:
+        categories = list(map(lambda category: category.to_dict(), Category.query.all()))
+        return jsonify({'categories': categories})
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_category/<category_id>', methods=['GET'])
+def api_get_category(category_id):
+    try:
+        category = Category.query.get(category_id).to_dict_full()
+        articles = list(filter(lambda article: article['published'], category['articles']))
+        return jsonify({'articles': articles})
     except Exception as e:
         print(e)
         return {}

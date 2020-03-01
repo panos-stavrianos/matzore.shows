@@ -221,7 +221,7 @@ class Tag(db.Model):
     def to_dict_full(self):
         tag = self.to_dict()
         tag['events'] = list(map(lambda event: event.to_dict(), self.events))
-        tag['article'] = list(map(lambda article: article.to_dict(), self.articles))
+        tag['articles'] = list(map(lambda article: article.to_dict(), self.articles))
         return tag
 
     def __repr__(self):
