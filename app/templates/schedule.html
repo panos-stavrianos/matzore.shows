@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-primary">
+                <div class="card-header text-center text-white bg-primary ">
+                    Πρόγραμμα εκπομπών
+                </div>
+                <div class="card-body text-center">
+                    <ul class="nav nav-tabs justify-content-center" role="tablist">
+                        {% for day in days %}
+                            <li class="nav-item">
+                                <a class="nav-link {{ "active" if days[day][0]=="Monday" else "" }}"
+                                   data-toggle="tab" href="#{{ days[day][0] }}">{{ days[day][1] }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        {% for day in days %}
+                            <div id="{{ days[day][0] }}"
+                                 class="container tab-pane {{ "active" if days[day][0]=="Monday" else "fade" }}"><br>
+                                <ul class="timeline timeline-centered">
+                                    {% for record in schedule[day] %}
+                                        <li class="timeline-item">
+                                            <div class="timeline-info">
+                                                <span>{{ record.from_time }} - {{ record.to_time }}</span>
+                                            </div>
+                                            <div class="timeline-marker"></div>
+                                            <div class="timeline-content">
+                                                <h3 class="timeline-title">
+                                                    <a href="/schedule_edit/{{ record.id }}"
+                                                       title="Δείτε περισσότερα">{{ record.show.name }}</a>
+                                                </h3>
+                                                <p data-toggle="tooltip"
+                                                   title="Μήνυμα για τον player">{{ record.message }}</p>
+                                                <p>{{ record.show.short_description }}</p>
+
+                                                <a href="schedule_edit/{{ record.id }}" data-toggle="tooltip"
+                                                   title="Επεξεργασία ώρας εκπομπής"> <i
+                                                        class="fas fa-edit text-warning"></i></a>
+
+                                                <a href="schedule_delete/{{ record.id }}" data-toggle="tooltip"
+                                                   title="Διαγραφή ώρας εκπομπής" class="delete"
+                                                   onclick="return confirm('Σίγουρα θέλετε να διαγράψετε αυτή την ώρα εκπομπής')">
+                                                    <i class="fas fa-trash-alt text-danger"></i>
+                                                </a>
+
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="/schedule_add" type="button" class="float">
+        <i class="fa fa-plus my-float"></i>
+    </a>
+{% endblock %}

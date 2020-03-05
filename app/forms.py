@@ -7,7 +7,7 @@ from wtforms import HiddenField, StringField, TextAreaField, SelectMultipleField
 from wtforms.validators import DataRequired
 
 from app import db
-from app.models import Member, Show, PlayingNow, Article, Category, Event, Tag
+from app.models import Member, Show, PlayingNow, Article, Category, Event, Tag, Schedule, days
 from app.tools import upload, default_avatar, default_logo, default_cover, TagListField
 
 
@@ -25,6 +25,14 @@ def get_categories_as_choices():
 
 def get_tags_as_choices():
     return list(map(lambda tag: tag.name, Tag.query.all()))
+
+
+def get_day_as_choices():
+    choices = []
+    for day in days:
+        choices.append((str(day), days[day][1]))
+    print(choices)
+    return choices
 
 
 class LoginForm(FlaskForm):
@@ -204,7 +212,7 @@ class ArticleForm(FlaskForm):
         self.short_description.data = article.short_description
         self.body.data = article.body
         self.published.data = article.published
-        self.category.data = article.category_id
+        self.category.data = str(article.category_id)
         self.authors.data = list(map(lambda member: str(member.id), article.authors))
         self.tags.data = list(map(lambda tag: str(tag.name), article.tags))
         if article.cover:
@@ -296,3 +304,42 @@ class CategoryForm(FlaskForm):
         category = Category.query.get(int(category_id))
         self.id.data = category.id
         self.name.data = category.name
+
+
+class ScheduleForm(FlaskForm):
+    id = HiddenField("id")
+    from_time = StringField('Από', validators=[DataRequired()])
+    to_time = StringField('Έως', validators=[DataRequired()])
+    day = SelectField('Ημέρα', validators=[DataRequired()])
+    message = StringField('Μήνυμα')
+    show = SelectField('Εκπομπή', choices=get_shows_as_choices())
+
+    submit = SubmitField('Καταχώριση')
+
+    def init(self):
+        self.day.choices = get_day_as_choices()
+        self.show.choices = get_shows_as_choices()
+
+    def save_to_db(self):
+        if self.id.data:  # edit
+            schedule = Schedule.query.get(int(self.id.data))
+        else:
+            schedule = Schedule()
+        schedule.from_time = self.from_time.data
+        schedule.to_time = self.to_time.data
+        schedule.day = int(self.day.data)
+        schedule.message = self.message.data
+        schedule.show_id = self.show.data
+
+        db.session.add(schedule)
+        db.session.commit()
+
+    def load_from_db(self, schedule_id):
+        schedule = Schedule.query.get(int(schedule_id))
+        self.from_time.data = schedule.from_time
+        self.to_time.data = schedule.to_time
+        self.day.data = str(schedule.day)
+        self.message.data = schedule.message
+        self.id.data = schedule.id
+        self.show.data = str(schedule.show_id)
+

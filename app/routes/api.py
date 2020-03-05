@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import jsonify
 
 from app import app
-from app.models import PlayingNow, Show, Member, Article, Event, Tag, Category
+from app.models import PlayingNow, Show, Member, Article, Event, Tag, Category, Schedule, days
 
 
 @app.route('/api/get_show_playing', methods=['GET'])
@@ -139,6 +139,23 @@ def api_get_category(category_id):
         category = Category.query.get(category_id).to_dict_full()
         articles = list(filter(lambda article: article['published'], category['articles']))
         return jsonify({'articles': articles})
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_schedule', methods=['GET'])
+def api_get_schedule():
+    try:
+        schedule = Schedule.query.all()
+        data = {}
+        for day in days:
+            data[day] = []
+        for record in schedule:
+            data[record.day].append(record.to_dict_full())
+        for day in data:
+            data[day] = sorted(data[day], key=lambda record: record['from_time'])
+        return jsonify({'schedule': data, 'days': days})
     except Exception as e:
         print(e)
         return {}

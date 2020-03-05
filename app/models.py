@@ -66,6 +66,8 @@ class Show(db.Model):
     members = db.relationship('Member', secondary=show_have_members, lazy='subquery',
                               backref=db.backref('members', lazy=True))
 
+    scheduled = db.relationship("Schedule", back_populates="show")
+
     def to_dict(self):
         return {'id': self.id,
                 'name': self.name,
@@ -226,6 +228,48 @@ class Tag(db.Model):
 
     def __repr__(self):
         return '<Tag: {}>'.format(self.to_dict())
+
+
+days = {
+    1: ["Monday", "Δευτέρα"],
+    2: ["Tuesday", "Τρίτη"],
+    3: ["Wednesday", "Τέταρτη"],
+    4: ["Thursday", "Πέμπτη"],
+    5: ["Friday", "Παρασκευή"],
+    6: ["Saturday", "Σάββατο"],
+    7: ["Sunday", "Κυριακή"]
+}
+
+
+class Schedule(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    from_time = db.Column(db.String(5))
+    to_time = db.Column(db.String(5))
+    day = db.Column(db.Integer)  # 1 for monday etc
+    message = db.Column(db.String(500))
+
+    show_id = db.Column(db.Integer, db.ForeignKey('show.id'))
+    show = db.relationship("Show", back_populates="scheduled")
+
+    def get_day_name(self):
+        return days.get(self.day, "Invalid day")
+
+    def to_dict(self):
+        return {'id': self.id,
+                'from_time': self.from_time,
+                'to_time': self.to_time,
+                'day': self.day,
+                'day_name': self.get_day_name(),
+                'message': self.message
+                }
+
+    def to_dict_full(self):
+        schedule = self.to_dict()
+        schedule['show'] = self.show.to_dict()
+        return schedule
+
+    def __repr__(self):
+        return '<Event: {}>'.format(self.to_dict())
 
 
 db.create_all()

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="justify-content-center row">
+        <div class="col-auto">
+            <div class="card border-primary ">
+                <div class="card-header text-white bg-primary ">
+                    Προσθέστε/Ενημερώστε Ώρα εκπομπής
+                </div>
+                <div class="card-body">
+                    <form name="form" action="/schedule_submit" id="form" class="form-horizontal"
+                          enctype="multipart/form-data"
+                          method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.show.label }}
+                            {{ form.show(class_="selectpicker form-control", **{'data-live-search': 'true','data-width':"auto",'data-style':"btn-primary"}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.day.label }}
+                            {{ form.day(class_="selectpicker form-control", **{'data-live-search': 'true','data-width':"auto",'data-style':"btn-primary"}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.from_time.label }}
+                            <input id="from_time" class="timepicker" name="from_time"
+                                   data-value="{{ form.from_time.data }}" width="276"/>
+                        </div>
+                        <div class="form-group">
+                            {{ form.to_time.label }}
+                            <input id="to_time" class="timepicker" name="to_time"
+                                   data-value="{{ form.to_time.data }}"
+                                   width="276"/>
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.message.label }}
+                            {{ form.message(class_="form-control") }}
+                        </div>
+
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-12 controls">
+                                <button type="submit" class="btn btn-outline-success pull-right"><i
+                                        class="fa fa-log-in"></i> Καταχώριση
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

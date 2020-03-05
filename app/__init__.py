@@ -25,4 +25,4 @@ migrate = Migrate(app, db)
 socketio = SocketIO(app)
 
 from app import models
-from app.routes import members, routes, shows, api, traffic, pilot, login, articles, events, categories
+from app.routes import members, routes, shows, api, traffic, pilot, login, articles, events, categories,schedule
