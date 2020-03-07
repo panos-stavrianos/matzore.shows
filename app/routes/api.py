@@ -25,7 +25,7 @@ def api_get_show_playing():
 def api_get_shows():
     try:
         shows = list(map(lambda show: show.to_dict(), Show.query.all()))
-        return jsonify(shows)
+        return jsonify({'shows': shows})
     except Exception as e:
         print(e)
         return {}
@@ -35,7 +35,7 @@ def api_get_shows():
 def api_get_show(show_id):
     try:
         show = Show.query.get(show_id).to_dict_full()
-        return jsonify(show)
+        return jsonify({'show': show})
     except Exception as e:
         print(e)
         return {}
@@ -45,7 +45,7 @@ def api_get_show(show_id):
 def api_get_members():
     try:
         members = list(map(lambda member: member.to_dict(), Member.query.all()))
-        return jsonify(members)
+        return {'members': members}
     except Exception as e:
         print(e)
         return {}
@@ -55,7 +55,7 @@ def api_get_members():
 def api_get_member(member_id):
     try:
         member = Member.query.get(member_id).to_dict_full()
-        return jsonify(member)
+        return {'member': member}
     except Exception as e:
         print(e)
         return {}
@@ -65,7 +65,7 @@ def api_get_member(member_id):
 def api_get_articles():
     try:
         articles = list(map(lambda article: article.to_dict(), Article.query.filter(Article.published == True).all()))
-        return jsonify(articles)
+        return {'articles': articles}
     except Exception as e:
         print(e)
         return {}
@@ -75,7 +75,7 @@ def api_get_articles():
 def api_get_article(article_id):
     try:
         article = Article.query.filter(Article.published == True, Article.id == article_id).first().to_dict_full()
-        return jsonify(article)
+        return {'article': article}
     except Exception as e:
         print(e)
         return {}
@@ -85,7 +85,7 @@ def api_get_article(article_id):
 def api_get_events():
     try:
         events = list(map(lambda event: event.to_dict(), Event.query.filter(Event.published == True).all()))
-        return jsonify(events)
+        return {'events': events}
     except Exception as e:
         print(e)
         return {}
@@ -95,7 +95,7 @@ def api_get_events():
 def api_get_event(event_id):
     try:
         event = Event.query.filter(Event.published == True, Event.id == event_id).first().to_dict_full()
-        return jsonify(event)
+        return {'event': event}
     except Exception as e:
         print(e)
         return {}
@@ -105,7 +105,7 @@ def api_get_event(event_id):
 def api_get_tags():
     try:
         tags = list(map(lambda tag: tag.to_dict(), Tag.query.all()))
-        return jsonify({'tags': tags})
+        return {'tags': tags}
     except Exception as e:
         print(e)
         return {}
@@ -117,7 +117,7 @@ def api_get_tag(tag_id):
         tag = Tag.query.get(tag_id).to_dict_full()
         events = list(filter(lambda event: event['published'], tag['events']))
         articles = list(filter(lambda article: article['published'], tag['articles']))
-        return jsonify({'articles': articles, 'events': events})
+        return {'articles': articles, 'events': events}
     except Exception as e:
         print(e)
         return {}
@@ -127,7 +127,7 @@ def api_get_tag(tag_id):
 def api_get_categories():
     try:
         categories = list(map(lambda category: category.to_dict(), Category.query.all()))
-        return jsonify({'categories': categories})
+        return {'categories': categories}
     except Exception as e:
         print(e)
         return {}
@@ -138,7 +138,7 @@ def api_get_category(category_id):
     try:
         articles = list(map(lambda article: article.to_dict(),
                             Article.query.filter(Article.published == True, Article.category_id == category_id).all()))
-        return jsonify({'articles': articles})
+        return {'articles': articles}
     except Exception as e:
         print(e)
         return {}
@@ -155,7 +155,7 @@ def api_get_schedule():
             data[record.day].append(record.to_dict_full())
         for day in data:
             data[day] = sorted(data[day], key=lambda record: record['from_time'])
-        return jsonify({'schedule': data, 'days': days})
+        return {'schedule': data, 'days': days}
     except Exception as e:
         print(e)
         return {}
