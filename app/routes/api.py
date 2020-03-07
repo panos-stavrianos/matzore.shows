@@ -136,9 +136,10 @@ def api_get_categories():
 @app.route('/api/get_category/<category_id>', methods=['GET'])
 def api_get_category(category_id):
     try:
+        category = Category.query.get(category_id)
         articles = list(map(lambda article: article.to_dict(),
                             Article.query.filter(Article.published == True, Article.category_id == category_id).all()))
-        return {'articles': articles}
+        return {'articles': articles, 'category': category}
     except Exception as e:
         print(e)
         return {}
