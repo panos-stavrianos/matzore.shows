@@ -24,7 +24,7 @@ def api_get_show_playing():
 @app.route('/api/get_shows', methods=['GET'])
 def api_get_shows():
     try:
-        shows = list(map(lambda show: show.to_dict(), Show.query.all()))
+        shows = list(map(lambda show: show.to_dict(), Show.query.order_by(Show.name.asc()).all()))
         return jsonify({'shows': shows})
     except Exception as e:
         print(e)
@@ -44,7 +44,7 @@ def api_get_show(show_id):
 @app.route('/api/get_members', methods=['GET'])
 def api_get_members():
     try:
-        members = list(map(lambda member: member.to_dict(), Member.query.all()))
+        members = list(map(lambda member: member.to_dict(), Member.query.order_by(Member.name.asc()).all()))
         return {'members': members}
     except Exception as e:
         print(e)
@@ -64,7 +64,8 @@ def api_get_member(member_id):
 @app.route('/api/get_articles', methods=['GET'])
 def api_get_articles():
     try:
-        articles = list(map(lambda article: article.to_dict(), Article.query.filter(Article.published == True).all()))
+        articles = list(map(lambda article: article.to_dict(),
+                            Article.query.filter(Article.published == True).order_by(Article.created_at.desc()).all()))
         return {'articles': articles}
     except Exception as e:
         print(e)
@@ -84,7 +85,8 @@ def api_get_article(article_id):
 @app.route('/api/get_events', methods=['GET'])
 def api_get_events():
     try:
-        events = list(map(lambda event: event.to_dict(), Event.query.filter(Event.published == True).all()))
+        events = list(map(lambda event: event.to_dict(),
+                          Event.query.filter(Event.published == True).order_by(Event.created_at.desc()).all()))
         return {'events': events}
     except Exception as e:
         print(e)
@@ -104,7 +106,7 @@ def api_get_event(event_id):
 @app.route('/api/get_tags', methods=['GET'])
 def api_get_tags():
     try:
-        tags = list(map(lambda tag: tag.to_dict(), Tag.query.all()))
+        tags = list(map(lambda tag: tag.to_dict(), Tag.query.order_by(Tag.name.asc()).all()))
         return {'tags': tags}
     except Exception as e:
         print(e)
@@ -126,7 +128,7 @@ def api_get_tag(tag_id):
 @app.route('/api/get_categories', methods=['GET'])
 def api_get_categories():
     try:
-        categories = list(map(lambda category: category.to_dict(), Category.query.all()))
+        categories = list(map(lambda category: category.to_dict(), Category.query.order_by(Category.name.asc()).all()))
         return {'categories': categories}
     except Exception as e:
         print(e)
