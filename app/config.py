@@ -7,6 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or '123'
     CLOUD_STORAGE_BUCKET = os.environ.get('CLOUD_STORAGE_BUCKET') or "matzore-files"
+    CLOUD_STORAGE_BUCKET_PRIVATE = os.environ.get('CLOUD_STORAGE_BUCKET_PRIVATE') or "matzore-private"
     GOOGLEMAPS_KEY = os.environ.get('GOOGLEMAPS_KEY') or 'AIzaSyBWGv5gzLoXbCnknnoa0V0MOMfBwcUtpik&callback'
 
     # SQLALCHEMY_ENGINE_OPTIONS = {

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
+import xmltodict
 from flask import jsonify
 
 from app import app
 from app.models import PlayingNow, Show, Member, Article, Event, Tag, Category, Schedule, days
+from app.tools import get_autopilot_schedule
 
 
 @app.route('/api/get_show_playing', methods=['GET'])
@@ -156,6 +158,28 @@ def api_get_schedule():
             data[day] = []
         for record in schedule:
             data[record.day].append(record.to_dict_full())
+        for day in data:
+            data[day] = sorted(data[day], key=lambda record: record['from_time'])
+        return {'schedule': data, 'days': days}
+    except Exception as e:
+        print(e)
+        return {}
+
+
+@app.route('/api/get_autopillot_schedule', methods=['GET'])
+def get_autopillot_schedule():
+    try:
+        sh = get_autopilot_schedule().download_as_string()
+        data_from_xml = xmltodict.parse(sh)
+        days_n = {}
+        for day_n in days:
+            days_n[days[day_n][2]] = day_n
+        data = {}
+        for day in days:
+            data[day] = []
+        for day in data_from_xml["WeekSchedule"]:
+            for zone in data_from_xml["WeekSchedule"][day]["Zone"]:
+                data[days_n[day]].append({'name': zone['@Name'], 'from_time': str(zone['@Start'])[:5]})
         for day in data:
             data[day] = sorted(data[day], key=lambda record: record['from_time'])
         return {'schedule': data, 'days': days}

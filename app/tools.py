@@ -85,6 +85,19 @@ def upload(uploaded_file):
     return blob.public_url
 
 
+def get_autopilot_schedule():
+    # Create a Cloud Storage client.
+    gcs = storage.Client()
+
+    # Get the bucket that the file will be uploaded to.
+    bucket = gcs.get_bucket(app.config['CLOUD_STORAGE_BUCKET_PRIVATE'])
+    schedule = bucket.get_blob('schedule.xml')
+    print(schedule)
+
+    # The public URL can be used to directly access the uploaded file via HTTP.
+    return schedule
+
+
 class TagListField(Field):
     widget = widgets.TextInput()
     choices = []

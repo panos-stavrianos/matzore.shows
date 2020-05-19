@@ -3,7 +3,6 @@ $(function () {
 });
 String.prototype.remove_timezone = function () {
     return this.replace(this.substr(this.indexOf('GMT')), '')
-
 };
 String.prototype.hash = function () {
     var self = this, range = Array(this.length);
@@ -66,8 +65,6 @@ $(document).ready(() => {
                 //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
                 // uploadFile.closest(".imgUp").find('.imagePreview').s("src", "url(" + this.result + ")");
                 uploadFile.closest(".imgUp").find('.imagePreview').attr('src', this.result);
-
-
             }
         }
 

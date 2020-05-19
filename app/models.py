@@ -231,13 +231,13 @@ class Tag(db.Model):
 
 
 days = {
-    1: ["Monday", "Δευτέρα"],
-    2: ["Tuesday", "Τρίτη"],
-    3: ["Wednesday", "Τέταρτη"],
-    4: ["Thursday", "Πέμπτη"],
-    5: ["Friday", "Παρασκευή"],
-    6: ["Saturday", "Σάββατο"],
-    7: ["Sunday", "Κυριακή"]
+    1: ["Monday", "Δευτέρα", "Mon"],
+    2: ["Tuesday", "Τρίτη", "Tue"],
+    3: ["Wednesday", "Τέταρτη", "Wed"],
+    4: ["Thursday", "Πέμπτη", "Thu"],
+    5: ["Friday", "Παρασκευή", "Fri"],
+    6: ["Saturday", "Σάββατο", "Sat"],
+    7: ["Sunday", "Κυριακή", "Sun"]
 }
 
 
