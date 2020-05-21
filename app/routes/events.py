@@ -37,7 +37,10 @@ def event(event_id):
     if 'authenticated' not in session:
         return redirect('/login')
     event = Event.query.get(int(event_id))
-    lat, lng = event.coordinates.split(',')
+    try:
+        lat, lng = event.coordinates.split(',')
+    except:
+        lat, lng = 0, 0
     return render_template('event.html', page='event', title='Εκδηλώσεις', cdn=cdn, event=event,
                            default_cover=default_cover, lat=lat, lng=lng, )
 

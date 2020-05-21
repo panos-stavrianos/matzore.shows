@@ -263,7 +263,6 @@ class EventForm(FlaskForm):
 
         if self.event_cover.data:
             event.cover = upload(self.event_cover.data)
-        print("event", event)
 
         db.session.add(event)
         db.session.commit()
@@ -342,4 +341,3 @@ class ScheduleForm(FlaskForm):
         self.message.data = schedule.message
         self.id.data = schedule.id
         self.show.data = str(schedule.show_id)
-

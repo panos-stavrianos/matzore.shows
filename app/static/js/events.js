@@ -13,7 +13,7 @@ $(document).ready(function () {
         "processing": true,
         "serverSide": true,
         "ajax": "/get_events",
-        "order": [[1, "asc"]],
+        "order": [[4, "desc"]],
         columns: [
             {data: "id", visible: false},
             {

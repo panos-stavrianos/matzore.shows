@@ -47,6 +47,8 @@ class Member(db.Model):
         member = self.to_dict()
         member['shows'] = list(map(lambda show: show.to_dict(), self.shows))
         member['articles'] = list(map(lambda article: article.to_dict(), self.articles))
+        member['articles'] = list(filter(lambda article: article['published'], member['articles']))
+
         return member
 
     def __repr__(self):
@@ -83,6 +85,7 @@ class Show(db.Model):
     def to_dict_full(self):
         show = self.to_dict()
         show['members'] = list(map(lambda member: member.to_dict(), self.members))
+        show['scheduled'] = list(map(lambda schedule: schedule.to_dict(), self.scheduled))
         return show
 
     def __repr__(self):
@@ -174,8 +177,8 @@ class Event(db.Model):
                 'cover': self.cover,
                 'location': self.location,
                 'coordinates': self.coordinates.split(',') if self.coordinates else [],
-                'event_date': self.event_date.replace(tzinfo=dateutil.tz.tzlocal()),
-                'created_at': self.created_at.replace(tzinfo=dateutil.tz.tzlocal()),
+                'event_date': self.event_date.replace(tzinfo=dateutil.tz.tzlocal()) if self.event_date else "",
+                'created_at': self.created_at.replace(tzinfo=dateutil.tz.tzlocal()) if self.created_at else "",
                 'published': self.published}
 
     def to_dict_full(self):
