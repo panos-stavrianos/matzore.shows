@@ -14,10 +14,9 @@ def api_get_show_playing():
     try:
         playing_now = PlayingNow.query.order_by(PlayingNow.id.desc()).first()
         if playing_now.until_time > datetime.now():
-            playing_now_json = {'name': playing_now.show.name, 'cover': playing_now.show.logo,
+            return {'name': playing_now.show.name, 'cover': playing_now.show.logo,
                                 'show_id': playing_now.show.id,
                                 'message': playing_now.message, 'now': datetime.now()}
-            return playing_now_json
     except:
         return {}
     return {}
