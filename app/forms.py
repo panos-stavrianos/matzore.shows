@@ -28,9 +28,7 @@ def get_tags_as_choices():
 
 
 def get_day_as_choices():
-    choices = []
-    for day in days:
-        choices.append((str(day), days[day][1]))
+    choices = [(str(day), days[day][1]) for day in days]
     print(choices)
     return choices
 
@@ -105,10 +103,7 @@ class MemberForm(FlaskForm):
     submit = SubmitField('Καταχώριση')
 
     def save_to_db(self):
-        if self.id.data:
-            member = Member.query.get(int(self.id.data))
-        else:
-            member = Member()
+        member = Member.query.get(int(self.id.data)) if self.id.data else Member()
         member.name = self.name.data
         member.display_name = self.display_name.data
         member.bio = self.bio.data

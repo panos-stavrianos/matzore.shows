@@ -103,10 +103,7 @@ class TagListField(Field):
     choices = []
 
     def process_formdata(self, valuelist):
-        if valuelist:
-            self.data = valuelist
-        else:
-            self.data = []
+        self.data = valuelist if valuelist else []
 
     def _value(self):
         print("_VALUE")
