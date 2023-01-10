@@ -21,7 +21,7 @@ idna==2.9
 itsdangerous==1.1.0
 Jinja2==2.11.1
 jsonify==0.5
-Mako==1.1.1
+Mako==1.2.2
 MarkupSafe==1.1.1
 protobuf==3.11.3
 pyasn1==0.4.8
