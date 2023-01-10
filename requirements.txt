@@ -44,7 +44,7 @@ APScheduler==3.6.3
 flask-socketio
 python-socketio
 gevent-websocket
-gevent~=20.5.0
+gevent~=22.10.2
 flask-cors
 flask-googlemaps
 untangle
